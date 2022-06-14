@@ -11,5 +11,11 @@
 
     <artifactId>source code study</artifactId>
 
+    <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-parent</artifactId>-->
+<!--        </dependency>-->
+    </dependencies>
 
 </project>
