@@ -1,24 +1,21 @@
 package com.scs;
 
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
+@Slf4j
 public class Test {
 
-    public static void main(String[] args) {
-        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
-        HashMap hashMap = new HashMap();
-//        Set<String> set = EnumSet.of("1,2,3");
+    public static void main(String[] args) throws InterruptedException {
+        log();
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class, isolation = Isolation.DEFAULT)
-    public void testTransactional(){
-
+    public static void log() throws InterruptedException {
+        log.trace("trace level log");
+        log.debug("debug level log");
+        log.info("info level log");
+        log.error("error level log");
+        log.warn("fatal level log");
+        // 设置休眠时间(单位ms)，控制日志打印速度
+        Thread.sleep(3);
     }
 }
