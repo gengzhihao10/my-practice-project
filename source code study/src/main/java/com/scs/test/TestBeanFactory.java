@@ -1,4 +1,4 @@
-package com.scs;
+package com.scs.test;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;

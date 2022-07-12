@@ -1,4 +1,4 @@
-package com.scs;
+package com.scs.coding;
 
 
 /**
