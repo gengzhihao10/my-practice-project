@@ -5,11 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Test {
 
-    public static void main(String[] args) throws InterruptedException {
-        log();
+    public static void main(String[] args)  {
+        StringBuilder builder = new StringBuilder("reverse");
+        StringBuffer buffer = new StringBuffer("reverse");
+        String revStr = "reverse";
+        log.info(ReverseString.reverse3(revStr));
     }
 
-    public static void log() throws InterruptedException {
+    public static void test() throws InterruptedException {
         log.trace("trace level log");
         log.debug("debug level log");
         log.info("info level log");
