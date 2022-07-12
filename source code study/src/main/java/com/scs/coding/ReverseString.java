@@ -12,7 +12,7 @@ public class ReverseString {
     /**
      * @author gengzhihao
      * @date 2022/7/12 15:35
-     * @description 通过char数组reverse字符串
+     * @description 通过String.toCharArray()返回的char数组反转字符串
      * @param
      * @return
      **/
@@ -41,7 +41,7 @@ public class ReverseString {
     /**
      * @author gengzhihao
      * @date 2022/7/12 16:09
-     * @description
+     * @description 通过String.charAt()进行反转
      * @param null
      * @return
      **/
