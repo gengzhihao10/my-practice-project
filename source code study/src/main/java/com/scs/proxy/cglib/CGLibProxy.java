@@ -59,6 +59,14 @@ public class CGLibProxy implements MethodInterceptor {
         return result;
     }
 
+
+    /**
+     * @author gengzhihao
+     * @date 2022/7/26 23:28
+     * @description 测试cglib动态代理
+     * @param null
+     * @return
+     **/
     public static void main(String[] args) throws JsonProcessingException {
         CGLibProxy cgLibProxy = new CGLibProxy();
         PersonService personService = (PersonService)cgLibProxy.getInstance(new PersonServiceImpl());
