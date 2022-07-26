@@ -21,10 +21,11 @@ public class MyThread extends Thread{
         log.info("TestThread run");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         log.info("线程启动前");
         MyThread myThread = new MyThread();
         myThread.start();
+        Thread.sleep(1000);
         log.info("线程启动后");
     }
 }

@@ -1,4 +1,4 @@
-package com.scs.test;
+package com.scs.bean;
 
 import org.springframework.beans.factory.FactoryBean;
 

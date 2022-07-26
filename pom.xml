@@ -17,6 +17,7 @@
     <modules>
         <module>source code study</module>
         <module>coding</module>
+        <module>common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
