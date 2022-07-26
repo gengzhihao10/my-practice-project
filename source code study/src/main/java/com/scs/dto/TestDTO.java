@@ -1,4 +1,4 @@
-package com.scs.DTO;
+package com.scs.dto;
 
 import lombok.*;
 
