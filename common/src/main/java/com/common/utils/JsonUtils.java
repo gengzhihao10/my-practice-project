@@ -8,8 +8,7 @@ import java.io.IOException;
 
 public class JsonUtils {
 
-    @Autowired
-    private static ObjectMapper objectMapper;
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
 
     /**
@@ -35,6 +34,4 @@ public class JsonUtils {
         return objectMapper.readValue(json,type);
     }
 
-    public static void main(String[] args) {
-    }
 }
