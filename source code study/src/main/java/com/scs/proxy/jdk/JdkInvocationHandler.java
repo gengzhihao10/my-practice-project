@@ -1,6 +1,6 @@
 package com.scs.proxy.jdk;
 
-import com.common.utils.JsonUtils;
+import com.common.utils.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.scs.input.PersonInput;
 import com.scs.service.PersonService;
@@ -46,7 +46,7 @@ public class JdkInvocationHandler implements InvocationHandler {
             log.info("开始 jdk动态代理");
             result = method.invoke(target,args);
             log.info("结束 jdk动态代理");
-            log.info(JsonUtils.objectToJson(result));
+            log.info(JsonUtil.objectToJson(result));
         }else {
             result = method.invoke(target,args);
         }

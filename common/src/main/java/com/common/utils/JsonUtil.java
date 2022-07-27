@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.IOException;
 
 @Slf4j
-public class JsonUtils {
+public class JsonUtil {
 
     private static ObjectMapper objectMapper = new ObjectMapper();
 

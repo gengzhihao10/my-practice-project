@@ -1,6 +1,6 @@
 package com.scs.service.impl;
 
-import com.common.utils.JsonUtils;
+import com.common.utils.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.scs.input.PersonInput;
 import com.scs.output.PersonOutput;
@@ -23,7 +23,7 @@ public class PersonServiceImpl implements PersonService {
         log.info("开始 吃东西");
         PersonOutput personOutput = new PersonOutput();
         personOutput.setDesc(personInput.getFood() + "很好吃");
-        log.info("结束 吃东西，{}", JsonUtils.objectToJson(personOutput));
+        log.info("结束 吃东西，{}", JsonUtil.objectToJson(personOutput));
 
         return personOutput;
     }
