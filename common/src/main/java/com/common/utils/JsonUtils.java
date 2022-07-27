@@ -1,11 +1,14 @@
 package com.common.utils;
 
+import com.common.consts.enums.ErrorEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
+@Slf4j
 public class JsonUtils {
 
     private static ObjectMapper objectMapper = new ObjectMapper();
@@ -18,8 +21,13 @@ public class JsonUtils {
      * @param null
      * @return
      **/
-    public static String objectToJson(Object object) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(object);
+    public static String objectToJson(Object object){
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            log.error("JsonUtil异常 {}",e);
+            throw new RuntimeException(ErrorEnum.OBJECT_TO_JSON_FAIL.getMessage());
+        }
     }
 
 
@@ -30,8 +38,13 @@ public class JsonUtils {
      * @param null
      * @return
      **/
-    public static Object jsonToObjcet(String json, Class type) throws IOException {
-        return objectMapper.readValue(json,type);
+    public static Object jsonToObjcet(String json, Class type){
+        try {
+            return objectMapper.readValue(json,type);
+        } catch (IOException e) {
+            log.error("JsonUtil异常 {}",e);
+            throw new RuntimeException(ErrorEnum.JSON_TO_OBJECT_FAIL.getMessage());
+        }
     }
 
 }
