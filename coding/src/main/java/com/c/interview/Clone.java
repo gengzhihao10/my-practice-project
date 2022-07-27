@@ -15,29 +15,6 @@ public class Clone{
 
     /**
      * @author gengzhihao
-     * @date 2022/7/27 9:51
-     * @description 调用浅复制类
-     * @param
-     * @return
-     **/
-    public Object shallowClone(ShallowCloneDTO target) throws CloneNotSupportedException {
-        return target.clone();
-    }
-
-    /**
-     * @author gengzhihao
-     * @date 2022/7/27 10:19
-     * @description 调用深复制类
-     * @param
-     * @return
-     **/
-    public Object deepClone(DeepCloneDTO target) throws CloneNotSupportedException {
-        return target.clone();
-    }
-
-
-    /**
-     * @author gengzhihao
      * @date 2022/7/27 10:20
      * @description 测试
      * @param
