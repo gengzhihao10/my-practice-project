@@ -6,6 +6,7 @@ import com.scs.input.PersonInput;
 import com.scs.service.PersonService;
 import com.scs.service.impl.PersonServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -18,7 +19,7 @@ import java.lang.reflect.Proxy;
  * @description 基于jdk的动态代理，需要实现InvocationHandler
 **/
 @Slf4j
-public class JdkInvocationHandler implements InvocationHandler {
+public class JdkInvocationHandler implements InvocationHandler, HandlerInterceptor {
 
     private Object target;
 

@@ -25,7 +25,7 @@ public class JsonUtil {
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            log.error("JsonUtil异常 {}",e);
+            log.error("JsonUtil异常: ",e);
             throw new RuntimeException(ErrorEnum.OBJECT_TO_JSON_FAIL.getMessage());
         }
     }
@@ -42,7 +42,7 @@ public class JsonUtil {
         try {
             return objectMapper.readValue(json,type);
         } catch (IOException e) {
-            log.error("JsonUtil异常 {}",e);
+            log.error("JsonUtil异常 :",e);
             throw new RuntimeException(ErrorEnum.JSON_TO_OBJECT_FAIL.getMessage());
         }
     }
