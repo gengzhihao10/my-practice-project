@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
@@ -30,7 +31,8 @@ import java.util.Locale;
 @Aspect
 @Slf4j
 @Component
-public class LogAspect {
+@Order(5)
+public class LogAop {
 
 //    @Autowired
 //    private SimpleDateFormat simpleDateFormat;
