@@ -32,7 +32,11 @@ public class CheckInputAop {
     public void checkControllerInput2() {
     }
 
-    @Before(value = "checkControllerInput2()")
+    @Pointcut("@annotation(com.mw.anotation.CheckInput)")
+    public void checkControllerInput3() {
+    }
+
+    @Before(value = "checkControllerInput3()")
     public void  checkInput(JoinPoint joinPoint) throws Throwable {
         log.info("开始aop校验入参非空");
         Object[] objects = joinPoint.getArgs();
@@ -46,10 +50,11 @@ public class CheckInputAop {
 //        log.info("sourceLocation为 {}",joinPoint.getSourceLocation());
 //        log.info("staticPart为 {}",joinPoint.getStaticPart());
         List<Object> objectList = Arrays.asList(objects);
-        Object input = null;
-        if (CollectionUtil.isNotEmpty(objectList)){
-            input = objectList.get(0);
+        if (CollectionUtil.isEmpty(objectList)){
+            return;
         }
+        Object input = objectList.get(0);
+
         BaseInput baseInput = null;
         if (input instanceof BaseInput){
             baseInput = (BaseInput)input;

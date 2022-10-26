@@ -2,6 +2,7 @@ package com.mw.web;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.json.JSONUtil;
+import com.mw.anotation.CheckInput;
 import com.mw.request.RestPriceQueryInput;
 import com.mw.response.RestPriceQueryOutput;
 import com.mw.service.PriceService;
@@ -30,6 +31,7 @@ public class PriceController {
      * @date 2022/9/2 17:23
      * @description 根据id查询单件商品价格（用户测试aop）
      **/
+    @CheckInput
     @PostMapping("/query")
     public RestPriceQueryOutput queryPrice(@RequestBody RestPriceQueryInput restPriceQueryInput) throws NoSuchMethodException {
 //        log.info("测试反射执行结果 {}", priceService.);
