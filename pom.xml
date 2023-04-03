@@ -25,13 +25,16 @@
         <version>2.1.4.RELEASE</version>
     </parent>
 
+    <properties>
+        <lombok.version>1.18.8</lombok.version>
+    </properties>
     <!--dependencies中的依赖，子项目无需显示声明即可全部继承-->
     <dependencies>
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
+            <version>${lombok.version}</version>
         </dependency>
 
         <!--导入jpa依赖-->

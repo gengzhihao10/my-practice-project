@@ -9,3 +9,17 @@ spring:
     url: jdbc:mysql://localhost:3306/csair?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&useAffectedRows=true&allowPublicKeyRetrieval=true
     username: root
     password: root
+  redis:
+    # Redis 单机单实例
+    database: 0
+    host: localhost
+    port: 6379
+    password: root
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
