@@ -19,6 +19,12 @@ public class Code5_2位图的实现 {
             bits = new long[(max + 64) >> 6];
         }
 
+        /*
+         * @author gengzhihao
+         * @date 2023/4/14 10:21
+         * @description 将数添加进位图中
+         * @param num 小于最大值
+         **/
         public void add(int num){
             /**
              * num/64可以知道这个数对应位图中数的下标，
