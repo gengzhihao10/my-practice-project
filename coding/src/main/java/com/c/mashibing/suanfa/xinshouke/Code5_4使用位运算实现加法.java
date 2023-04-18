@@ -111,34 +111,43 @@ public class Code5_4使用位运算实现加法 {
     /*
      * @author gengzhihao
      * @date 2023/4/14 11:39
-     * @description
-     * @param dividend
-     * @param divisor
+     * @description 除法 a/b，包括整数最小的情况
+     * @param a 被除数
+     * @param b 除数
      * @return int
      **/
-    public static int divide(int dividend, int divisor){
-        if (dividend == Integer.MIN_VALUE && divisor == Integer.MIN_VALUE){
+    public static int divide(int a, int b){
+        //被除数和除数都是系统最小
+        if (a == Integer.MIN_VALUE && b == Integer.MIN_VALUE){
             return 1;
         }
-        else if (divisor == Integer.MIN_VALUE){
+        //仅有除数为系统最小
+        else if (b == Integer.MIN_VALUE){
             return 0;
         }
-        else if (dividend == Integer.MIN_VALUE){
-            if (divisor == negNum(1)){
+        //仅有被除数为系统最小
+        else if (a == Integer.MIN_VALUE){
+            //除数为-1，返回整数最大值（约定）
+            if (b == negNum(1)){
                 return Integer.MAX_VALUE;
             }
             else {
-                int ans = div(add(dividend,1),divisor);
-                return add(ans,div(minus(dividend,multi(ans, divisor)),divisor));
+                //c = (a + 1)/b
+                int c = div(add(a,1),b);
+                //c + (a - (c * b))/b
+                return add(c,div(minus(a,multi(c, b)),b));
             }
         }
+        //a和b都和最小值没关系，直接除
         else {
-            return div(dividend, divisor);
+            return div(a, b);
         }
     }
 
     public static void main(String[] args) {
-        System.out.println(multi(-3,7));
+        int a = Integer.MIN_VALUE;
+
+        System.out.println(-a);
     }
 
 }
