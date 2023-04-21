@@ -37,9 +37,9 @@ public class Code7_4能否组成路径和 {
      * @author gengzhihao
      * @date 2023/4/21 11:23
      * @description 递归寻找路径
-     * @param x
-     * @param preSum
-     * @param sum
+     * @param x 当前节点
+     * @param preSum 当前路径的和
+     * @param sum 预期的和
      **/
     private static void process(Node x, int preSum, int sum) {
         //判断是否为叶子结点
