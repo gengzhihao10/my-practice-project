@@ -2,7 +2,7 @@ package com.c.mashibing.suanfa.xinshouke;
 
 import java.util.Map;
 
-public class Code7_1判断二叉树是否为平衡搜索二叉树 {
+public class Code7_1判断二叉树是否为平衡二叉树 {
 
     //二叉树节点
     public static class Node{
@@ -30,7 +30,7 @@ public class Code7_1判断二叉树是否为平衡搜索二叉树 {
     /*
      * @author gengzhihao
      * @date 2023/4/20 11:17
-     * @description 判断二叉树是否为平衡搜索二叉树
+     * @description 判断二叉树是否为平衡二叉树
      * @param root
      * @return boolean
      **/
