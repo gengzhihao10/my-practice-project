@@ -8,6 +8,9 @@
         <!--指定Java版本-->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <lombok.version>1.18.8</lombok.version>
+
     </properties>
 
     <groupId>org.example</groupId>
@@ -25,9 +28,6 @@
         <version>2.1.4.RELEASE</version>
     </parent>
 
-    <properties>
-        <lombok.version>1.18.8</lombok.version>
-    </properties>
     <!--dependencies中的依赖，子项目无需显示声明即可全部继承-->
     <dependencies>
         <!--lombok-->
