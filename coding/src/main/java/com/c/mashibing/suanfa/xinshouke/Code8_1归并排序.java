@@ -52,6 +52,67 @@ public class Code8_1归并排序 {
         }
     }
 
+    //非递归版本(循环)的归并排序的实现
+    //时间复杂度o(N**logN)
+    public static void mergeSort2(int[] arr) {
+        if(arr == null || arr.length < 2){
+            return;
+        }
+        int step = 1;
+        int N = arr.length;
+        //step = arr.length时没有必要进行排序了
+        while (step < N){
+            int L = 0;
+            while (L < N){
+                int M = 0;
+                //N-1 - L + 1,等价于N-L，也就是计算数组最后一个数N-1到L有多少个数
+                // N-L >= step ，意味着左端L到数组最后一个数N-1的成员的个数，大于步长
+                // 也就是说这时通过M=L+step-1去计算M不会发生数组的下标越界
+                if (N - L >= step){
+                    M = L + step - 1;
+                }
+                else {
+                    M = N -1;
+                }
+                //包含M=L+step-1和N-1两种情况
+                if(M == N-1){
+                    break;
+                }
+                int R = 0;
+                //(M-1)-(M+1)+1等价于N-1-M
+                //类似于上面的M，同样要判断R是否触碰到边界
+                if (N - 1 -M >= step){
+                    R = M + step;
+                }
+                else {
+                    R = N - 1;
+                }
+
+                merge(arr,L,M,R);
+
+                if (R == N-1){
+                    break;
+                }
+                else {
+                    L = R + 1;
+                }
+            }
+            //1 如果step > (N/2)，等价于step * 2 > N，也就是说步长step下一次的翻倍会大于数组长度，不满足循环条件，在这里提前打断循环
+            //为什么要通过step > (N/2)的方式而不是step * 2 > N，且要提前打断循环这种别扭的方式呢
+            //因为N极大时，如接近int最大值2^31-1时，例如N为2^31-2，step为2^30，step翻倍后为2^31，会溢出，
+            // 所以要通过上述别扭的方式判断是否大于数组长度
+            //2 为什么不是>=，因为除法是地板除，向下取整，
+            // 例如N=9，step=4，此时如果满足了4>=9/2就break，会导致最后一个数没有merge排序就结束循环
+            if (step > (N / 2)) {
+                break;
+            }
+            else{
+                step *= 2;
+            }
+        }
+
+    }
+
 
     public static void main(String[] args) {
         int testTime = 500000;
@@ -72,6 +133,8 @@ public class Code8_1归并排序 {
         }
         System.out.println("测试结束");
     }
+
+
 
 
 }
