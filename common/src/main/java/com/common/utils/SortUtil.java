@@ -4,10 +4,10 @@ package com.common.utils;
 /**
  * @author gengzhihao
  * @date 2023/4/22 11:24
- * @description 对数器工具类，用于测试算法
+ * @description 数组排序工具类，用于测试算法
 **/
 
-public class LogarithmicUtil {
+public class SortUtil {
 
     /*
      * @author gengzhihao
@@ -102,5 +102,13 @@ public class LogarithmicUtil {
             }
         }
         return true;
+    }
+
+
+    public static void swapValue(int[] array, int i, int j) {
+        int middle = array[i];
+        array[i] = array[j];
+        array[j] = middle;
+        return;
     }
 }
