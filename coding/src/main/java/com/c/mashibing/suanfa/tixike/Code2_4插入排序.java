@@ -1,6 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
-import com.common.utils.SortUtil;
+import com.common.utils.LogarithmicUtil;
 
 public class Code2_4插入排序 {
 
@@ -22,10 +22,9 @@ public class Code2_4插入排序 {
             curIndex = i;
 
             while (arr[curIndex - 1] < arr[curIndex]){
-                SortUtil.swapValue(arr,i-1,i);
+                LogarithmicUtil.swapValue(arr,i-1,i);
                 curIndex--;
             }
-
         }
     }
 

@@ -1,6 +1,6 @@
 package com.c.mashibing.suanfa.xinshouke;
 
-import com.common.utils.SortUtil;
+import com.common.utils.LogarithmicUtil;
 
 public class Code8_1归并排序 {
 
@@ -120,14 +120,14 @@ public class Code8_1归并排序 {
         int maxValue = 100;
         System.out.println("测试开始");
         for (int i = 0; i < testTime; i++){
-            int[] arr1 = SortUtil.generateRandomArray(maxSize, maxValue);
-            int[] arr2 = SortUtil.copyArray(arr1);
+            int[] arr1 = LogarithmicUtil.generateRandomArray(maxSize, maxValue);
+            int[] arr2 = LogarithmicUtil.copyArray(arr1);
             mergeSort1(arr1);
             mergeSort2(arr2);
-            if (!SortUtil.isEqual(arr1,arr2)){
+            if (!LogarithmicUtil.isEqual(arr1,arr2)){
                 System.out.println("出错了");
-                SortUtil.printArray(arr1);
-                SortUtil.printArray(arr2);
+                LogarithmicUtil.printArray(arr1);
+                LogarithmicUtil.printArray(arr2);
                 break;
             }
         }

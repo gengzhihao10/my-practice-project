@@ -7,7 +7,7 @@ package com.common.utils;
  * @description 数组排序工具类，用于测试算法
 **/
 
-public class SortUtil {
+public class LogarithmicUtil {
 
     /*
      * @author gengzhihao
