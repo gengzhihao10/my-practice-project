@@ -7,12 +7,17 @@ package com.c.mashibing.suanfa.tixike;
  * @description
  * 题目1，一个数组中有一种数出现了K次，其他数都出现了M次，M>1, K<M，
  * 找到出现了K次的数，要求，额外空间复杂度O(1)，时间复杂度O(N)
+ * todo
+ *  1，写出题目1的对数器和经典写法
+ *  2，题目2，一个数组中，有一个数不知道出现了几次，其他数出现了M次，M>1，
+ *  想要知道不知道次数的数出现次数是否为K次。要求，额外空间复杂度O(1)，时间复杂度O(N)
+ *  3，写出题目2的对数器
 **/
 
 public class Code3_6找到出现了k次的数代码实现 {
 
 
-    public static void process1(int[] arr, int K,int M){
+    public static void qs1_process1(int[] arr, int K,int M){
         //准备工作，准备好数组
         int[] resultArr  = new int[32];
         //1，将所有数的第j位累加到数组resultArr[j]中
@@ -40,7 +45,10 @@ public class Code3_6找到出现了k次的数代码实现 {
 
 
     public static void main(String[] args) {
-        int[] arr = {3,3,5,5,5,4,4,4,7,7,7};
-        process1(arr,2,3);
+        int[] arr = {-1,-1,5,5,5,4,4,4,7,7,7};
+        qs1_process1(arr,2,3);
+
+        double test = 8.9;
+        System.out.println((int)test);
     }
 }
