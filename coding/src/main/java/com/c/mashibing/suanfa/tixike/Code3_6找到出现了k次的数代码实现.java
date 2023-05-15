@@ -37,4 +37,10 @@ public class Code3_6找到出现了k次的数代码实现 {
         System.out.println(result);
 
     }
+
+
+    public static void main(String[] args) {
+        int[] arr = {3,3,5,5,5,4,4,4,7,7,7};
+        process1(arr,2,3);
+    }
 }
