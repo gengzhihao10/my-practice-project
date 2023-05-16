@@ -176,14 +176,13 @@ public class Code3_6找到出现了k次的数代码实现 {
 
         boolean result = true;
         for (int j = 0; j < 32; j++){
-            //fixme K对应的数为0时，出现问题
-
             if (resultArr[j] % M != 0 && resultArr[j] % M != K){
                 result = false;
                 return result;
             }
         }
 
+        //当不知道次数的数为0，且出现次数不为K次时，返回false。是针对上面代码的补丁
         if (result){
             int count = 0;
             for (int i = 0; i < arr.length; i++){
