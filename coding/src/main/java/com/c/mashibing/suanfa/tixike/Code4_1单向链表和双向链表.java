@@ -7,7 +7,6 @@ package com.c.mashibing.suanfa.tixike;
  * @description
  *  题目1，单链表的反转，要求，额外空间复杂度为O(1)，也就是实现不能借助容器
  *  题目2，双联表的反转。要求类似题目1
- * todo
  *  题目3，删除单链表中指定节点
  *
 **/
@@ -101,6 +100,26 @@ public class Code4_1单向链表和双向链表 {
      **/
     public static LinkedNode qs3_process1(LinkedNode head, int num){
 
+        //开头就有num的情况
+        while (head != null){
+            if (head.value != num){
+                break;
+            }
+            head = head.next;
+        }
+
+        LinkedNode cur = head;
+        LinkedNode pre = head;
+        while (cur != null){
+            if (cur.value != num){
+                pre = cur;
+            }
+            else {
+                pre.next = cur.next;
+            }
+            cur = cur.next;
+        }
+        return head;
 
     }
 
@@ -117,9 +136,11 @@ public class Code4_1单向链表和双向链表 {
 
         LinkedNode node1 = new LinkedNode(1);
         LinkedNode node2 = new LinkedNode(2);
+        LinkedNode node4 = new LinkedNode(2);
         LinkedNode node3 = new LinkedNode(3);
         node1.next = node2;
-        node2.next = node3;
+        node2.next = node4;
+        node4.next = node3;
 
         LinkedNode head = qs3_process1(node1,2);
 
