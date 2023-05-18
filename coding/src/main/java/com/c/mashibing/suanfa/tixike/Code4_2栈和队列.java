@@ -11,4 +11,5 @@ package com.c.mashibing.suanfa.tixike;
 public class Code4_2栈和队列 {
 
 
+
 }
