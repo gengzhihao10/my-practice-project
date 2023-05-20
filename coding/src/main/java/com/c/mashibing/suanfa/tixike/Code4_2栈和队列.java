@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * todo
  *  题目1，双向链表实现队列
  *  题目2，双向链表实现栈
  *  题目3，数组实现栈
