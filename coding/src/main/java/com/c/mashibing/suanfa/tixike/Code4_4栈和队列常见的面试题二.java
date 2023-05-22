@@ -62,19 +62,26 @@ public class Code4_4栈和队列常见的面试题二 {
 
         //将1中的数值导出到2中，仅保留1中最后一个元素
         private void exportValue() {
-            while (!queue1.isEmpty()){
-                if (queue1.size() == 1){
-                    break;
-                }
+//            while (!queue1.isEmpty()){
+//                if (queue1.size() == 1){
+//                    break;
+//                }
+//                queue2.offer(queue1.poll());
+//            }
+            while (queue1.size() > 1){
+
                 queue2.offer(queue1.poll());
             }
         }
 
         //将2中的数据恢复至1中
         private void recoverValue() {
-            while (!queue2.isEmpty()){
-                queue1.offer(queue2.poll());
-            }
+//            while (!queue2.isEmpty()){
+//                queue1.offer(queue2.poll());
+//            }
+            Queue<Integer> temp = queue1;
+            queue1 = queue2;
+            queue2 = temp;
         }
 
 
