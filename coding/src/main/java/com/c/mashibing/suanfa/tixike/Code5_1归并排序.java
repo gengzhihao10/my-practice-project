@@ -5,7 +5,6 @@ import com.common.utils.LogarithmicUtil;
 import java.util.Arrays;
 
 /*
-todo
  题目1，归并排序递归，并写出对数器
  题目2，归并排序循环
 
