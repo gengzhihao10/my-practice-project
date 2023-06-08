@@ -1,14 +1,14 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，给定一个数组arr，两个整数lower和upper，
  返回arr中有多少个子数组的累加和在[lower, upper]的范围上
  求sum数组右组－左组有多少个子数组符合要求
- lower < sum[R] - sum[L] < upper
+ lower < sum[R] - sum[L] < upper //sum[L]表示左组中的元素，sum[R]表示右组中的元素
  -lower > sum[L] - sum[R] > -upper
  sum[R] - lower > sum[L] > sum[R] - upper
  sum[R] - upper < sum[L] < sum[R] - lower
+       newLower < sum[L] < newUpper
  解决答题和对数器的bug
  */
 public class Code6_1归并排序序 {
@@ -39,7 +39,7 @@ public class Code6_1归并排序序 {
     private static int process1(int[] sum, int lower, int upper,int L,int R) {
         //如果只有一个元素
         if (L == R){
-            return sum[L] >= lower && sum[L] <= upper ? 1 : 0;
+            return (sum[L] >= lower && sum[L] <= upper) ? 1 : 0;
         }
         int M = L + (R-L)/2;
         return process1(sum,lower,upper,L,M)
@@ -54,14 +54,14 @@ public class Code6_1归并排序序 {
         int windowL = L;
         int windowR = L;
         int result = 0;
-        for (int i = 0; i < R-M; i++){
+        for (int i = M+1; i <= R; i++){
             int newLower = sum[i]-upper;
             int newUpper = sum[i]-lower;
             //形成一个左闭右开的[newLower,newUpper)的范围
-            while (windowL <= M && sum[i] < newLower){
+            while (windowL <= M && sum[windowL] < newLower){
                 windowL++;
             }
-            while (windowR <= M && sum[i] <= newUpper){
+            while (windowR <= M && sum[windowR]<= newUpper){
                 windowR++;
             }
             result += windowR - windowL;
@@ -95,14 +95,18 @@ public class Code6_1归并排序序 {
     //对数器
     public static void main(String[] args) {
         int testTime = 1000;
-        int maxArrLength = 10;
+        int maxArrLength = 20;
         int maxValue = 100;
         for (int i = 0; i < testTime; i++){
             int[] arr1 = generateArr(maxArrLength,maxValue);
+//            int[] arr1 = {6,9,9};
             int[] arr2 = copyArr(arr1);
+            int[] arr3 = copyArr(arr1);
             int arrSum = getArrSum(arr1);
             int lower = (int)(Math.random()*arrSum);
             int upper = (int)(Math.random()*arrSum);
+//            int lower = 7;
+//            int upper = 12;
             if (lower > upper){
                 int temp = lower;
                 lower = upper;
@@ -112,6 +116,10 @@ public class Code6_1归并排序序 {
             int result2 = getSumNum(arr2,lower,upper);
             if (result1 != result2){
                 System.out.println("出错啦");
+                System.out.print("原数组为 ");
+                printArr(arr3);
+                System.out.println("lower "+lower + " upper "+upper);
+                System.out.println("result1 "+result1 + " result2 " + result2);
             }
         }
     }
@@ -164,5 +172,12 @@ public class Code6_1归并排序序 {
             sum += arr[i];
         }
         return sum;
+    }
+
+    public static void printArr(int[] arr){
+        for (int i = 0; i < arr.length; i++){
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
     }
 }
