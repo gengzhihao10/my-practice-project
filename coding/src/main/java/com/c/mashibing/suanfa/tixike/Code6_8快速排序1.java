@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Stack;
 
 /*
-TODO
  题目1，快速排序，递归版本
  逻辑类似于荷兰国旗
  题目2，快速排序，非递归版本
@@ -116,32 +115,36 @@ public class Code6_8快速排序1 {
         //进行循环
         while (!stack.isEmpty()){
             Task task = stack.pop();
-            int left = task.L - 1;
-            int right = task.R;
-            int cur = task.L;
-            int end = task.R;
-            swap(arr,task.R,task.L+(int)((task.R-task.L)*Math.random()));
-            while (cur != right){
-                if (arr[cur] < arr[end]){
-                    swap(arr,cur++,++left);
+            //对应process1里的中止条件
+            if (task.L < task.R){
+                int left = task.L - 1;
+                int right = task.R;
+                int cur = task.L;
+                int end = task.R;
+                swap(arr,task.R,task.L+(int)((task.R-task.L)*Math.random()));
+                while (cur != right){
+                    if (arr[cur] < arr[end]){
+                        swap(arr,cur++,++left);
+                    }
+                    else if (arr[cur] == arr[end]){
+                        cur++;
+                    }
+                    else if (arr[cur] > arr[end]){
+                        swap(arr,cur,--right);
+                    }
                 }
-                else if (arr[cur] == arr[end]){
-                    cur++;
+                swap(arr,end,right);
+                //小于区的右边界left如果小于L，则不存在小于区
+                if (left >= task.L){
+                    stack.push(new Task(task.L, left));
                 }
-                else if (arr[cur] > arr[end]){
-                    swap(arr,cur,--right);
+                //同理，大于区的左边界right+1如果大于R，不存在大于区
+                if (right + 1 <= task.R ){
+                    stack.push(new Task(right+1, task.R));
                 }
-            }
-            swap(arr,end,right);
-            //小于区的右边界left如果小于L，则不存在小于区
-            if (left >= task.L){
-                stack.push(new Task(task.L, left));
-            }
-            //同理，大于区的左边界right+1如果大于R，不存在大于区
-            if (right + 1 <= task.R ){
-                stack.push(new Task(right+1, task.R));
             }
         }
+
     }
 
     //要进行的任务，L和R表示数组的索引范围
