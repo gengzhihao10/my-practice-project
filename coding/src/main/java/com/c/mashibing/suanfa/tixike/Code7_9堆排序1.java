@@ -2,12 +2,10 @@ package com.c.mashibing.suanfa.tixike;
 
 import com.common.utils.LogarithmicUtil;
 
-import java.util.Arrays;
-
 /*
 todo
  题目1，有一个现成的数组，对其进行堆排序。最主要的是要实现对大根堆向上调整heapinsert和向下调整heapify两个操作
- 题目2，有一个数组，但是我们假设，输入是一个数一个数的输入，对其进行堆排序
+ 题目2，实现一个堆
  题目3，有一个几乎有序的数组，几乎有序指的是从无序到有序，最多移动k个数，且k远小于数组长度N，对齐进行排序
  使用堆排序，可以做到复杂度为o(N * log(k+1))
  */
@@ -26,17 +24,36 @@ public class Code7_9堆排序1 {
         }
 
         int headSize = 0;
+        //调整成大根堆
         while (++headSize <= arr.length) {
             heapInsert(arr, headSize - 1);
         }
+
     }
 
     private static void heapInsert(int[] arr, int cur) {
         while (cur != 0) {
-            int parent = cur / 2;
+            int parent = (cur-1) / 2;
             if (arr[parent] < arr[cur]) {
                 swap(arr, parent, cur);
                 cur = parent;
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    public static void heapify(int[] arr, int heapSize){
+        int cur = 0;
+        while (cur <= heapSize){
+            int biggerChild = arr[2 * cur] > arr[2 * cur + 1] ? 2 * cur : 2 * cur + 1;
+            if (arr[cur] < arr[biggerChild]){
+                swap(arr,cur,biggerChild);
+                cur = biggerChild;
+            }
+            else {
+                break;
             }
         }
     }
@@ -52,17 +69,16 @@ public class Code7_9堆排序1 {
 
     public static void main(String[] args) {
         int testTime = 100000;
-        int maxLength = 1000;
-        int maxValue = 1000;
-//        for (int i = 0; i < testTime; i++) {
-//            int[] arr1 = randomArray(maxLength, maxValue);
-//            LogarithmicUtil.printArray(arr1);
-            int[] arr1 = {4,1,8,5,2,7,9,3};
+        int maxLength = 5;
+        int maxValue = 9;
+        for (int i = 0; i < testTime; i++) {
+            int[] arr1 = randomArray(maxLength, maxValue);
+//            int[] arr1 = {4,1,8,5};
             int[] arr2 = copyArray(arr1);
             int[] temp = copyArray(arr1);
 //            LogarithmicUtil.printArray(temp);
             qs1_process1(arr1);
-            Arrays.sort(arr2);
+            bubbleSort(arr2);
             if (!equalOrNot(arr1, arr2)) {
                 System.out.println("错误啦");
                 System.out.print("原数组：");
@@ -71,7 +87,7 @@ public class Code7_9堆排序1 {
                 LogarithmicUtil.printArray(arr1);
                 System.out.println();
             }
-//        }
+        }
     }
 
     private static boolean equalOrNot(int[] arr1, int[] arr2) {
@@ -104,7 +120,21 @@ public class Code7_9堆排序1 {
         for (int i = 0; i < length; i++) {
             arr[i] = (int) (Math.random() * maxValue);
         }
-//        LogarithmicUtil.printArray(arr);
         return arr;
+    }
+
+    public static void bubbleSort(int[] arr){
+        if (arr == null || arr.length < 2){
+            return;
+        }
+
+        for (int i = arr.length-1; i > 0; i--){
+            for (int j =0; j < i; j++){
+                if (arr[j] < arr[j+1]){
+                    swap(arr,j,j+1);
+                }
+            }
+
+        }
     }
 }
