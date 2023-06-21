@@ -208,6 +208,7 @@ public class Code7_9堆排序1 {
         public T poll(){
             T result = list.get(0);
             swap(list,0,--heapSize);
+            list.remove(heapSize);
             heapify(list,0,heapSize);
             return result;
         }
