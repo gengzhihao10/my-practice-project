@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /*
-todo
  题目1，给定很多线段，每个线段都有两个数组[start, end]
  表示线段开始位置和结束位置，左右都是闭区间
  规定：
