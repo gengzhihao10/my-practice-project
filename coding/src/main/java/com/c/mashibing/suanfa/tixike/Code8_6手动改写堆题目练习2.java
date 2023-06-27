@@ -150,5 +150,15 @@ public class Code8_6手动改写堆题目练习2 {
             heapInsert(list,indexMap.get(obj),comparator);
         }
 
+        public List<T> getAllElements(){
+            List<T> result = new ArrayList<>();
+            if (heapSize == 0){
+                return result;
+            }
+            for (int i = 0;  i < heapSize; i++){
+                result.add(list.get(i));
+            }
+            return result;
+        }
     }
 }
