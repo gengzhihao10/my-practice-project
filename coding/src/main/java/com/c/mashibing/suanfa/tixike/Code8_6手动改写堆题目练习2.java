@@ -70,7 +70,7 @@ public class Code8_6手动改写堆题目练习2 {
             return list.get(0);
         }
 
-        public T poll() {
+        public T pop() {
             T result = list.get(0);
             swap(list, 0, --heapSize);
             indexMap.remove(result);
@@ -79,16 +79,18 @@ public class Code8_6手动改写堆题目练习2 {
             return result;
         }
 
-        public void offer(T element) {
+        public void push(T element) {
             list.add(element);
-            indexMap.put(element,heapSize);
-            heapInsert(list, heapSize++, comparator);
+            int index = heapInsert(list, heapSize++, comparator);
+            indexMap.put(element,index);
         }
 
         private void swap(List<T> list, int i, int j) {
             T temp = list.get(i);
             list.set(i, list.get(j));
             list.set(j, temp);
+            indexMap.put(list.get(i),i);
+            indexMap.put(list.get(j),j);
         }
 
 
@@ -121,7 +123,7 @@ public class Code8_6手动改写堆题目练习2 {
             return 2 * cur + 2;
         }
 
-        private void heapInsert(List<T> list, int cur, Comparator<T> comparator) {
+        private int heapInsert(List<T> list, int cur, Comparator<T> comparator) {
             while (cur != 0) {
                 int parent = (cur - 1) / 2;
                 if (comparator.compare(list.get(parent), list.get(cur)) > 0) {
@@ -131,6 +133,7 @@ public class Code8_6手动改写堆题目练习2 {
                     break;
                 }
             }
+            return cur;
         }
 
         public void remove(T obj){
@@ -139,9 +142,13 @@ public class Code8_6手动改写堆题目练习2 {
             }
             int index = indexMap.get(obj);
             swap(list,index,--heapSize);
+            T swapElement = list.get(index);
             list.remove(heapSize);
             indexMap.remove(obj);
-            resign(list.get(index));
+            indexMap.put(swapElement,index);
+            if (index != heapSize){
+                resign(list.get(index));
+            }
         }
 
 
@@ -159,6 +166,54 @@ public class Code8_6手动改写堆题目练习2 {
                 result.add(list.get(i));
             }
             return result;
+        }
+    }
+
+        public static void main(String[] args) {
+        EnhancedHeap<Student> heap = new EnhancedHeap<>(new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return o1.age - o2.age;
+            }
+        });
+        Student s1 = new Student(11, "张三");
+        Student s2 = new Student(14, "李四");
+        Student s3 = new Student(39, "贾斯汀.比伯");
+        Student s4 = new Student(7, "汤姆");
+        Student s5 = new Student(45, "李建国");
+        Student s6 = new Student(23, "罗辑");
+        Student s7 = new Student(19, "程心");
+        Student s8 = new Student(34, "章北海");
+
+        heap.push(s1);
+        heap.push(s2);
+        heap.push(s3);
+        heap.push(s4);
+        heap.push(s5);
+        System.out.println(heap.peek());
+        System.out.println(heap.pop());
+        ;
+        System.out.println(heap.pop());
+        ;
+        System.out.println(heap.pop());
+        ;
+        System.out.println(heap.pop());
+        ;
+
+    }
+
+    public static class Student {
+        int age;
+        String name;
+
+        public Student(int age, String name) {
+            this.age = age;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name + "  " + age;
         }
     }
 }
