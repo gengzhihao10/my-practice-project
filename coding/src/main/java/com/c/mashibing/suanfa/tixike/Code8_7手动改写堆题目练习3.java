@@ -5,7 +5,6 @@ import java.util.*;
 import com.c.mashibing.suanfa.tixike.Code8_6手动改写堆题目练习2.EnhancedHeap;
 
 /*
-todo
  题目1，一对arr[i]和op[i]就代表一个事件：
  用户号为arr[i]，op[i] == T就代表这个用户购买了一件商品
  op[i] == F就代表这个用户退货了一件商品
