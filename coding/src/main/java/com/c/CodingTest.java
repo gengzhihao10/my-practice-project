@@ -3,6 +3,12 @@ package com.c;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Date;
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 /**
  * @author gengzhihao
  * @date 2022/7/13 9:21
@@ -32,4 +38,28 @@ public class CodingTest {
 
 
     }
+}
+
+class Person {
+    String firstName;
+    String lastName;
+
+    Person() {
+    }
+
+    Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Date.from(Clock.systemDefaultZone().instant()));
+        ZoneId zoneId = ZoneId.of("GMT+8");
+        System.out.println(LocalDateTime.now(zoneId));
+    }
+}
+
+
+interface PersonFactory<P extends Person> {
+    P create(String firstName, String lastName);
 }
