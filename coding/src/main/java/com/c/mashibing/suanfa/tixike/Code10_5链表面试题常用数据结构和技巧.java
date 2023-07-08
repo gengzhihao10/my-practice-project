@@ -6,7 +6,6 @@ import java.util.PriorityQueue;
 import java.util.Stack;
 
 /*
-todo
  题目1， 判断输入的链表是否为回文结构。可以使用额外空间
  题目2，判断输入的链表是否为回文结构。要求只用有限几个变量
  题目3，一个链表，假设其节点从左到右为L1 L2 L3 L4 R1 R2 R3 R4，
