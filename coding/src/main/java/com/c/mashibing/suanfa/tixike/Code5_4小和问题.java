@@ -1,6 +1,5 @@
 package com.c.mashibing.suanfa.tixike;
 
-import com.common.utils.LogarithmicUtil;
 
 /*
  =====================================
