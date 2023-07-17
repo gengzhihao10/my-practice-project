@@ -52,7 +52,7 @@ public class Code11_7非递归实现二叉树的先序中序后续遍历2 {
             //2.弹出节点并打印
             cur = stack.pop();
             System.out.print(cur.value + "  ");
-            //3.将cur设置为右节点
+            //3.将cur的右孩子设置为右节点
             cur = cur.right;
 
         }
