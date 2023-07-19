@@ -8,6 +8,8 @@ import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author gengzhihao
@@ -18,11 +20,7 @@ import java.time.ZoneId;
 public class CodingTest {
 
     public static void main(String[] args) {
-        log.info("测试开始");
-
-        log.info("返回值为 {}",test());
-
-        log.info("测试结束");
+        Map map = new HashMap<>();
     }
 
     private static String test() {
