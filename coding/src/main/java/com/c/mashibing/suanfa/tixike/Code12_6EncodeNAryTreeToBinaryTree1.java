@@ -76,9 +76,8 @@ public class Code12_6EncodeNAryTreeToBinaryTree1 {
                 cur = serialize(node);
                 head.left = cur;
                 continue;
-            }else {
-                cur.right = serialize(node);
             }
+            cur.right = serialize(node);
             cur = cur.right;
         }
         return head;
