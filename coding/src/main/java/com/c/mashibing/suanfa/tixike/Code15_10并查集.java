@@ -3,31 +3,30 @@ package com.c.mashibing.suanfa.tixike;
 
 import org.springframework.util.CollectionUtils;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
 /*
-todo
  题目1，使用map实现一个并查集
  UnionSet(List<V> list);//构造方法
  void union(V a, V b);
  boolean isSameSet(V a, V b);
- 题目2，使用数组实现一个并查集
  */
-public class Code15_19并查集 {
+public class Code15_10并查集 {
 
 
-    public static class UnionSet<V>{
+    public static class UnionSet1<V>{
 
         Map<V,V> parentMap;
         Map<V,Integer> sizeMap;
 
-        public UnionSet() {
+        public UnionSet1() {
         }
 
-        public UnionSet(List<V> list){
+        public UnionSet1(List<V> list){
             parentMap = new HashMap<>();
             sizeMap = new HashMap<>();
 
@@ -85,4 +84,9 @@ public class Code15_19并查集 {
             return head1 == head2;
         }
     }
+
+
+
+
+
 }
