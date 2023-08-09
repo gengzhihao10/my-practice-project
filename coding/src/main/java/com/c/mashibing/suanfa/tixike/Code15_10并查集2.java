@@ -3,7 +3,6 @@ package com.c.mashibing.suanfa.tixike;
 import java.io.*;
 
 /*
-todo
  题目1，使用数组实现一个并查集
  */
 public class Code15_10并查集2 {
@@ -11,16 +10,20 @@ public class Code15_10并查集2 {
 
     public static int MAXN = 1000001;
 
+    //fater[i] i : i的父亲为fater[i]
     public static int[] father = new int[MAXN];
-
+    //仅有为head的size[i]是有效的
     public static int[] size = new int[MAXN];
-
+    //help[]是帮助数组
     public static int[] help = new int[MAXN];
 
 
     // 初始化并查集
     public static void init(int n) {
-
+        for (int i = 1; i <= n; i++){
+            father[i] = i;
+            size[i] = 1;
+        }
     }
 
     // 查询x和y是不是一个集合
@@ -29,13 +32,39 @@ public class Code15_10并查集2 {
     }
 
     // 从i开始寻找集合代表点
-    public static int find(int i) {
-        return 0;
+    public static int find(int cur) {
+        int parent = father[cur];
+        int index = 0;
+
+        while (parent != cur){
+            help[index++] = cur;
+            cur = parent;
+            parent = father[parent];
+        }
+
+        for (;index > 0; index--){
+            father[help[index]] = parent;
+        }
+        return parent;
     }
 
     // x所在的集合，和y所在的集合，合并成一个集合
     public static void union(int x, int y) {
+        int head1 = find(x);
+        int head2 = find(y);
 
+        if (head1 == head2){
+            return;
+        }
+
+        int size1 = size[head1];
+        int size2 = size[head2];
+
+        int big = size1 >= size2 ? size1 : size2;
+        int small = big == size1 ? size2 : size1;
+
+        size[big] = size[big] + size[small];
+        father[small] = big;
 
     }
 
