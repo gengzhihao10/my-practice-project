@@ -1,9 +1,8 @@
 package com.c.mashibing.suanfa.tixike;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
-import com.sun.javafx.geom.Edge;
+import netscape.security.UserTarget;
 
-import java.util.Set;
+import java.util.*;
 
 /*
 todo
@@ -12,13 +11,75 @@ todo
 public class Code17_14Prim算法1 {
 
 
+    /*
+     * @author gengzhihao
+     * @date 2023/8/17 11:06
+     * @description 题目1
+     * @param graph
+     * @return Set<Edge>
+     **/
     public static Set<Edge> primMST(Graph graph){
+        if (graph == null){
+            return null;
+        }
+
+
         return null;
     }
 
-    private static class Graph{}
+    //权重小的排前面
+    private static class EdgeComparator implements Comparator<Edge>{
 
-    private static class Edge{}
+        @Override
+        public int compare(Edge o1, Edge o2) {
+            return o1.weight - o2.weight;
+        }
+    }
 
-    private static class Node{}
+    private static class Graph{
+        HashMap<Integer,Node> nodes;
+        HashSet<Edge> edges;
+
+        public Graph() {
+        }
+
+        public Graph(HashMap<Integer, Node> nodes, HashSet<Edge> edges) {
+            this.nodes = nodes;
+            this.edges = edges;
+        }
+    }
+
+    private static class Edge{
+        int weight;
+        Node start;
+        Node end;
+
+        public Edge() {
+        }
+
+        public Edge(int weight, Node start, Node end) {
+            this.weight = weight;
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    private static class Node{
+        int value;
+        int in;
+        int out;
+        ArrayList<Node> nexts;
+        ArrayList<Edge> edges;
+
+        public Node() {
+        }
+
+        public Node(int value) {
+            this.value = value;
+            in = 0;
+            out = 0;
+             nexts = new ArrayList<>();
+             edges = new ArrayList<>();
+        }
+    }
 }
