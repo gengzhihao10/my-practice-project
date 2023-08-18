@@ -5,7 +5,6 @@ import netscape.security.UserTarget;
 import java.util.*;
 
 /*
-todo
  题目1，找到最小生成树，使用Prim算法
  */
 public class Code17_14Prim算法1 {
@@ -24,7 +23,33 @@ public class Code17_14Prim算法1 {
         }
 
 
-        return null;
+        //已解锁 的node
+        Set<Node> nodeSet = new HashSet<>();
+        //已解锁 的edge
+        PriorityQueue<Edge> edgePriorityQueue = new PriorityQueue<>();
+        //结果 边的集合
+        Set<Edge> res = new HashSet<>();
+
+        for (Node node : graph.nodes.values()){
+            if (!nodeSet.contains(node)){
+                nodeSet.add(node);
+                for (Edge edge : node.edges){
+                    edgePriorityQueue.offer(edge);
+                }
+                while (!edgePriorityQueue.isEmpty()){
+                    Edge edge = edgePriorityQueue.poll();
+                    Node endNode = edge.end;
+                    if (!nodeSet.contains(endNode)){
+                        nodeSet.add(endNode);
+                        res.add(edge);
+                        for (Edge edge1 : endNode.edges){
+                            edgePriorityQueue.add(edge1);
+                        }
+                    }
+                }
+            }
+        }
+        return res;
     }
 
     //权重小的排前面
