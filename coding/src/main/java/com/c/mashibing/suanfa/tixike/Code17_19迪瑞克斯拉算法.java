@@ -28,7 +28,7 @@ public class Code17_19迪瑞克斯拉算法 {
         distanceMap.put(from,0);
         HashMap<Node,Integer> res = new HashMap<>();
         Node cur = getMinDistanceNodeFromDMapAndNotConfirm(distanceMap,res);
-        while (distanceMap.size() != res.size()){
+        while (cur != null){
             for (Edge edge : cur.edges){
                 Node endNode = edge.end;
                 if (!distanceMap.containsKey(endNode)){
