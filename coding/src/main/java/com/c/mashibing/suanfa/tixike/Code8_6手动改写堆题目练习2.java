@@ -3,7 +3,6 @@ package com.c.mashibing.suanfa.tixike;
 import java.util.*;
 
 /*
-todo
  题目1，实现一个加强堆
  成员变量，
  private ArrayList<T> heap;
