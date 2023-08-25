@@ -31,9 +31,11 @@ public class Code17_19迪瑞克斯拉算法 {
         while (cur != null){
             for (Edge edge : cur.edges){
                 Node endNode = edge.end;
+                //不存在，就添加
                 if (!distanceMap.containsKey(endNode)){
                     distanceMap.put(endNode,distanceMap.get(cur) + edge.weight);
                 }
+                //存在，就更新
                 else {
                     distanceMap.put(endNode,Math.min(distanceMap.get(endNode),distanceMap.get(cur) + edge.weight));
                 }
