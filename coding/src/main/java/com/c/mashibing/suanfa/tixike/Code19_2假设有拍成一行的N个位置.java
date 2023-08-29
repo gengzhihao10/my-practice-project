@@ -35,7 +35,7 @@ public class Code19_2假设有拍成一行的N个位置 {
                 return 0;
             }
         }
-        if (cur == 0){
+        if (cur == 1){
             return process1(N,1,aim,rest-1);
         }
         if (cur == N - 1){
