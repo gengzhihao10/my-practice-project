@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  假设有排成一行的N个位置，记为1~N，N 一定大于或等于 2
  开始时机器人在其中的M位置上(M 一定是 1~N 中的一个)
  如果机器人来到1位置，那么下一步只能往右来到2位置；
@@ -38,11 +37,101 @@ public class Code19_2假设有拍成一行的N个位置 {
             }
         }
         if (cur == 1){
-            return process1(N,1,aim,rest-1);
+            return process1(N,2,aim,rest-1);
         }
-        if (cur == N - 1){
+        if (cur == N){
             return process1(N,N-1,aim,rest-1);
         }
         return process1(N,cur-1,aim,rest-1) + process1(N,cur+1,aim,rest-1);
+    }
+
+
+    /*
+     * @author gengzhihao
+     * @date 2023/8/30 8:54
+     * @description 题目2
+     * @param N
+     * @param start
+     * @param aim
+     * @param K
+     * @return int
+     **/
+    public static int qs2_process1(int N, int start, int aim, int K) {
+        int[][] ans = new int[N+1][K+1];
+        for (int i = 0; i <= N; i++){
+            for (int j = 0; j <= K; j++){
+                ans[i][j] = -1;
+            }
+        }
+        return process2(N,start,aim,K,ans);
+    }
+
+    //机器人走的每一步的情况
+    private static int process2(int N, int cur, int aim, int rest,int[][] ans) {
+        if (ans[cur][rest] != -1){
+            return ans[cur][rest];
+        }
+
+        int res = -1;
+        if (rest == 0){
+//            if (cur == aim){
+//                return 1;
+//            }else {
+//                return 0;
+//            }
+            res = cur == aim ? 1 : 0;
+        }
+        else if (cur == 1){
+            res =  process2(N,2,aim,rest-1,ans);
+        }
+        else if (cur == N){
+            res =  process2(N,N-1,aim,rest-1,ans);
+        }else {
+            res = process2(N,cur-1,aim,rest-1,ans) + process2(N,cur+1,aim,rest-1,ans);
+        }
+        ans[cur][rest] = res;
+        return res;
+    }
+
+
+    /*
+     * @author gengzhihao
+     * @date 2023/8/30 9:15
+     * @description 题目3
+     * @param N
+     * @param start
+     * @param aim
+     * @param K
+     * @return int
+     **/
+    public static int qs3_process1(int N, int start, int aim, int K){
+        int[][] ans = new int[N+1][K+1];
+        ans[aim][0] = 1;
+
+        for (int j = 1; j <= K; j++){
+            ans[1][j] = ans[2][j-1];
+            for (int i = 2; i <= N-1; i++){
+                ans[i][j] = ans[i-1][j-1] + ans[i+1][j-1];
+            }
+            ans[N][j] = ans[N-1][j-1];
+        }
+//        printArr(ans);
+        return ans[start][K];
+    }
+
+    private static void printArr(int[][] ans) {
+        System.out.println();
+        for (int i = 0; i < ans.length; i++){
+            for (int j = 0; j < ans[i].length;j++){
+                System.out.print("  " + ans[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(qs1_process1(5, 2, 4, 6));
+        System.out.println(qs2_process1(5, 2, 4, 6));
+        System.out.println(qs3_process1(5, 2, 4, 6));
     }
 }
