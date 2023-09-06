@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
-todo
  题目1，
  给定一个字符串str，给定一个字符串类型的数组arr，出现的字符都是小写英文
  arr每一个字符串，代表一张贴纸，你可以把单个字符剪开使用，目的是拼出str来
