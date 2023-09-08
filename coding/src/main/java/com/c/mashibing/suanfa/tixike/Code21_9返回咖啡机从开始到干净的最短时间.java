@@ -11,7 +11,7 @@ todo
  返回从开始等到所有咖啡机变干净的最短时间
  三个参数：int[] arr、int N，int a、int b
  暴力递归
- 这个问题可以分解为2个问题：
+ 这个问题可以分解为2个部分：
  第1部分：在没有洗咖啡问题的基础上，得到所有人喝咖啡的最短时间（以最后一个人或者咖啡机来计算结束时间）
  这是一个贪心问题
  第2部分：在得到了一个以index为几号喝咖啡的人，value为喝完咖啡时间点的数组后，得到在这个数组的基础上，所有咖啡杯洗干净的最短时间（以最后一个咖啡杯计算时间）
@@ -28,11 +28,11 @@ public class Code21_9返回咖啡机从开始到干净的最短时间 {
      * @description 题目1
      * @param arr 数组arr代表每一个咖啡机冲一杯咖啡的时间，每个咖啡机只能串行的制造咖啡。
      * @param n 现在有n个人需要喝咖啡，只能用咖啡机来制造咖啡。
-     * @param a 洗杯子的机器洗完一个杯子时间为a
-     * @param b 任何一个杯子自然挥发干净的时间为b
+     * @param washTime 洗杯子的机器洗完一个杯子时间为washTime
+     * @param volatilizeTime 任何一个杯子自然挥发干净的时间为volatilizeTime
      * @return int 假设时间点从0开始，返回所有人喝完咖啡并洗完咖啡杯的全部过程结束后，至少来到什么时间点。
      **/
-    public static int coffee1(int[] arr, int n, int a, int b){
+    public static int coffee1(int[] arr, int n, int washTime, int volatilizeTime){
         return 0;
     }
 }
