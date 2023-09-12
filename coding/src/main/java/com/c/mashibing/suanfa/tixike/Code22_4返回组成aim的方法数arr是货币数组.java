@@ -16,6 +16,39 @@ todo
 public class Code22_4返回组成aim的方法数arr是货币数组 {
 
 
+    /*
+     * @author gengzhihao
+     * @date 2023/9/12 20:02
+     * @description 暴力递归
+     * @param arr
+     * @param aim
+     * @return int
+     **/
+    public static int coinWays0(int[] arr, int aim){
+        if (arr == null || arr.length == 0 || aim <= 0) {
+            return -1;
+        }
+
+        return process0(arr,aim,0);
+    }
+
+    //从arr数组的index位置出发到结束，正好组成rest，有多少种可能性，将其返回
+    private static int process0(int[] arr, int rest, int index) {
+        if (rest < 0){
+            return 0;
+        }
+
+        if (index == arr.length){
+            return rest == 0 ? 1 : 0;
+        }
+
+        int p1 = process0(arr,rest-arr[index],index+1);
+        int p2 = process0(arr,rest,index+1);
+
+        return p1+p2;
+    }
+
+    //********************************************************************************************
 
     /*
      * @author gengzhihao
@@ -26,7 +59,28 @@ public class Code22_4返回组成aim的方法数arr是货币数组 {
      * @return int
      **/
     public static int coinWays1(int[] arr, int aim){
-        return 0;
+        if (arr == null || arr.length == 0){
+            return aim == 0 ? 1 : 0;
+        }
+
+        int N = arr.length;
+        int[][] dp = new int[aim+1][N+1];
+
+        dp[0][N] = 1;
+
+        //注意变量不要用错，细节要注意，脑子不要迷糊
+        for (int index = N-1; index >= 0; index--){
+            for (int rest = 0; rest <= aim; rest++){
+                int temp = rest-arr[index];
+                int p1 = temp < 0 ? 0 : dp[temp][index+1];
+                int p2 = dp[rest][index+1];
+                dp[rest][index] = p1 + p2;
+            }
+        }
+
+//        print(dp);
+
+        return dp[aim][0];
     }
 
 
@@ -49,6 +103,16 @@ public class Code22_4返回组成aim的方法数arr是货币数组 {
 
     //****************************************************************************************************************
 
+    private static void print(int[][] arr){
+        System.out.println("打印二维数组");
+        for (int i = 0; i < arr.length; i++){
+            for (int j = 0; j < arr[i].length; j++){
+                System.out.print("  " + arr[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println("打印结束");
+    }
 
     // 为了测试
     public static int[] randomArray(int maxLen, int maxValue) {
@@ -77,8 +141,8 @@ public class Code22_4返回组成aim的方法数arr是货币数组 {
         for (int i = 0; i < testTime; i++) {
             int[] arr = randomArray(maxLen, maxValue);
             int aim = (int) (Math.random() * maxValue);
-            int ans1 = coinWays1(arr, aim);
-            int ans2 = coinWays2(arr, aim);
+            int ans1 = dp(arr, aim);
+            int ans2 = coinWays1(arr, aim);
             if (ans1 != ans2) {
                 System.out.println("Oops!");
                 printArray(arr);
@@ -89,5 +153,22 @@ public class Code22_4返回组成aim的方法数arr是货币数组 {
             }
         }
         System.out.println("测试结束");
+    }
+
+
+    public static int dp(int[] arr, int aim) {
+        if (aim == 0) {
+            return 1;
+        }
+        int N = arr.length;
+        int[][] dp = new int[N + 1][aim + 1];
+        dp[N][0] = 1;
+        for (int index = N - 1; index >= 0; index--) {
+            for (int rest = 0; rest <= aim; rest++) {
+                dp[index][rest] = dp[index + 1][rest] + (rest - arr[index] >= 0 ? dp[index + 1][rest - arr[index]] : 0);
+            }
+        }
+//        print(dp);
+        return dp[0][aim];
     }
 }
