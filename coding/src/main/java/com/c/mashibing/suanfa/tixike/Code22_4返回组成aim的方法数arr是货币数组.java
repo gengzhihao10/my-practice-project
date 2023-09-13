@@ -23,8 +23,8 @@ public class Code22_4返回组成aim的方法数arr是货币数组 {
      * @return int
      **/
     public static int coinWays0(int[] arr, int aim){
-        if (arr == null || arr.length == 0 || aim <= 0) {
-            return -1;
+        if (arr == null || arr.length == 0){
+            return aim == 0 ? 1 : 0;
         }
 
         return process0(arr,aim,0);
