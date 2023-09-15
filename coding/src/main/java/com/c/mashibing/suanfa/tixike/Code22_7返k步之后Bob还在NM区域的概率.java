@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，
  给定5个参数，N，M，row，col，k
  表示在N*M的区域上，醉汉Bob初始在(row,col)位置
@@ -13,7 +12,7 @@ todo
 public class Code22_7返k步之后Bob还在NM区域的概率 {
 
 
-    /*
+     /*
      * @author gengzhihao
      * @date 2023/9/13 14:42
      * @description 暴力递归
