@@ -134,7 +134,6 @@ public class Code20_9贴纸abcbbacck要贴出aabbcc的样式1 {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < 26; i++) {
 
-                    //fixme 问题在这里
                     int res = ans[i] - sticker[i];
                     for (int j = 0; j < res; j++) {
                         sb.append((char) (i + 'a'));
