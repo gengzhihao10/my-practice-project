@@ -1,7 +1,8 @@
 package com.c.mashibing.suanfa.tixike;
 
+import java.util.LinkedList;
+
 /*
-todo
  题目1，假设一个固定大小为W的窗口，依次划过arr，
  返回每一次滑出状况的最大值
  例如，arr=[4,3,5,4,3,3,6,7],W = 3
@@ -20,7 +21,28 @@ public class Code25_2每一个滑出状态的最大值 {
      * @return int[]
      **/
     public static int[] getMaxWindow(int[] arr, int w){
-        return null;
+        if (arr == null || arr.length == 0|| w == 0){
+            return null;
+        }
+
+        int[] res = new int[arr.length - w + 1];
+        int index = 0;
+
+        LinkedList<Integer> queue = new LinkedList<>();
+        for (int R = 0; R < arr.length; R++){
+            while (queue.size() != 0 && arr[queue.peekLast()] <= arr[R]){
+                queue.pollLast();
+            }
+            queue.offerLast(R);
+            if (queue.peekFirst() <= (R - w)){
+                queue.pollFirst();
+            }
+            if (R >= (w - 1)){
+                res[index++] = arr[queue.peekFirst()];
+            }
+        }
+
+        return res;
     }
 
 
