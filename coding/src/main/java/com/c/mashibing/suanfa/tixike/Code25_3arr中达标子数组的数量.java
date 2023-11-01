@@ -1,7 +1,8 @@
 package com.c.mashibing.suanfa.tixike;
 
+import java.util.LinkedList;
+
 /*
-todo
  题目1，给定一个整形数组arr,和一个整数num，
  某个arr中的子数组sub，如果想达标，必须满足：
  sub中最大值-sub中最小值<=num
@@ -18,7 +19,45 @@ public class Code25_3arr中达标子数组的数量 {
      * @return int
      **/
     private static int num(int[] arr, int sum) {
-        return 0;
+        if (arr == null || arr.length == 0 || sum < 0){
+            return 0;
+        }
+
+        LinkedList<Integer> maxWindow = new LinkedList<>();
+        LinkedList<Integer> minWindow = new LinkedList<>();
+
+        int total = 0;
+        int R = 0;
+        for (int L = 0; L < arr.length; L++){
+            //R向右移动，直到不符合要求为止。也就是更新maxWindow minWindow右侧的数据
+            while (R < arr.length){
+                while (!maxWindow.isEmpty() && arr[maxWindow.peekLast()] <= arr[R]){
+                    maxWindow.pollLast();
+                }
+                maxWindow.offerLast(R);
+                while (!minWindow.isEmpty() && arr[minWindow.peekLast()] >= arr[R]){
+                    minWindow.pollLast();
+                }
+                minWindow.offerLast(R);
+
+                if (arr[maxWindow.peekFirst()] - arr[minWindow.peekFirst()] <= sum){
+                    R++;
+                }else {
+                    break;
+                }
+            }
+
+            total += (R - L);
+
+            //更新maxWindow minWindow左侧的数据，防止在下一次循环中过期
+            if (maxWindow.peekFirst() <= L){
+                maxWindow.pollFirst();
+            }
+            if (minWindow.peekFirst() <= L){
+                minWindow.pollFirst();
+            }
+        }
+        return total;
     }
 
     // 暴力的对数器方法
@@ -77,9 +116,9 @@ public class Code25_3arr中达标子数组的数量 {
             if (ans1 != ans2) {
                 System.out.println("Oops!");
                 printArray(arr);
-                System.out.println(sum);
-                System.out.println(ans1);
-                System.out.println(ans2);
+                System.out.println("sum: " + sum);
+                System.out.println("ans1: " + ans1);
+                System.out.println("ans2: " + ans2);
                 break;
             }
         }
