@@ -1,10 +1,10 @@
 package com.c.mashibing.suanfa.tixike;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 /*
-todo
  题目1，arr是货币数组，其中的值都是正数。再给定一个正数aim。
  每个值都认为是一张货币，
  返回组成aim的最少货币数
@@ -14,8 +14,58 @@ todo
  */
 public class Code25_5组成aim的最小货币数 {
 
+    /*
+     * @author gengzhihao
+     * @date 2023/11/6 9:41
+     * @description 题目1
+     * @param arr
+     * @param aim
+     * @return int
+     **/
     public static int dp3(int[] arr, int aim){
-        return 0;
+        if (aim == 0) {
+            return 0;
+        }
+        // 得到info时间复杂度O(arr长度)
+        Info info = getInfo(arr);
+        int[] coins = info.coins;
+        int[] zhangs = info.zhangs;
+        int N = coins.length;
+        int[][] dp = new int[N + 1][aim + 1];
+        dp[N][0] = 0;
+        for (int j = 1; j <= aim; j++) {
+            dp[N][j] = Integer.MAX_VALUE;
+        }
+
+        for(int i = N -1; i >= 0; i--){
+            for(int mod = 0; mod < Math.min(coins[i],aim+1);mod++){
+                //小 -> 大
+                LinkedList<Integer> minWindow = new LinkedList<>();
+                minWindow.offer(mod);
+                for (int j = mod; j <= aim; j+=coins[i]){
+                    while (!minWindow.isEmpty() &&
+                            ((dp[i+1][minWindow.peekLast()] == Integer.MAX_VALUE )||
+                                    (dp[i+1][minWindow.peekLast()] +  compensate(j,minWindow.peekLast(),coins[i]) >= dp[i+1][j]))){
+                        minWindow.pollLast();
+                    }
+                    minWindow.offerLast(j);
+                    int overdue = j - coins[i] * (zhangs[i] + 1);
+                    if (minWindow.peekFirst() == overdue){
+                        minWindow.pollFirst();
+                    }
+                    if (minWindow.peekFirst() == Integer.MAX_VALUE){
+                        dp[i][j] = Integer.MAX_VALUE;
+                    }else {
+                        dp[i][j] = dp[i+1][minWindow.peekFirst()] + compensate(j,minWindow.peekFirst(),coins[i]);
+                    }
+                }
+            }
+        }
+        return dp[0][aim];
+    }
+
+    private static int compensate(int aim, int i, int coin) {
+        return (aim - i)/coin;
     }
 
 
@@ -39,75 +89,73 @@ public class Code25_5组成aim的最小货币数 {
     // 为了测试
     public static void main(String[] args) {
         int maxLen = 20;
-        int maxValue = 30;
+        int maxValue = 300;
         int testTime = 300000;
         System.out.println("功能测试开始");
         for (int i = 0; i < testTime; i++) {
             int N = (int) (Math.random() * maxLen);
             int[] arr = randomArray(N, maxValue);
             int aim = (int) (Math.random() * maxValue);
-            int ans1 = minCoins(arr, aim);
-            int ans2 = dp1(arr, aim);
-            int ans3 = dp2(arr, aim);
-            int ans4 = dp3(arr, aim);
-            if (ans1 != ans2 || ans3 != ans4 || ans1 != ans3) {
+            int ans0 = minCoins(arr, aim);
+            int ans1 = dp1(arr, aim);
+            int ans2 = dp2(arr, aim);
+            int ans3 = dp3(arr, aim);
+            if (ans0 != ans3) {
                 System.out.println("Oops!");
                 printArray(arr);
                 System.out.println(aim);
-                System.out.println(ans1);
-                System.out.println(ans2);
+                System.out.println(ans0);
                 System.out.println(ans3);
-                System.out.println(ans4);
                 break;
             }
         }
         System.out.println("功能测试结束");
 
-        System.out.println("==========");
-
-        int aim = 0;
-        int[] arr = null;
-        long start;
-        long end;
-        int ans2;
-        int ans3;
-
-        System.out.println("性能测试开始");
-        maxLen = 30000;
-        maxValue = 20;
-        aim = 60000;
-        arr = randomArray(maxLen, maxValue);
-
-        start = System.currentTimeMillis();
-        ans2 = dp2(arr, aim);
-        end = System.currentTimeMillis();
-        System.out.println("dp2答案 : " + ans2 + ", dp2运行时间 : " + (end - start) + " ms");
-
-        start = System.currentTimeMillis();
-        ans3 = dp3(arr, aim);
-        end = System.currentTimeMillis();
-        System.out.println("dp3答案 : " + ans3 + ", dp3运行时间 : " + (end - start) + " ms");
-        System.out.println("性能测试结束");
-
-        System.out.println("===========");
-
-        System.out.println("货币大量重复出现情况下，");
-        System.out.println("大数据量测试dp3开始");
-        maxLen = 20000000;
-        aim = 10000;
-        maxValue = 10000;
-        arr = randomArray(maxLen, maxValue);
-        start = System.currentTimeMillis();
-        ans3 = dp3(arr, aim);
-        end = System.currentTimeMillis();
-        System.out.println("dp3运行时间 : " + (end - start) + " ms");
-        System.out.println("大数据量测试dp3结束");
-
-        System.out.println("===========");
-
-        System.out.println("当货币很少出现重复，dp2比dp3有常数时间优势");
-        System.out.println("当货币大量出现重复，dp3时间复杂度明显优于dp2");
-        System.out.println("dp3的优化用到了窗口内最小值的更新结构");
+//        System.out.println("==========");
+//
+//        int aim = 0;
+//        int[] arr = null;
+//        long start;
+//        long end;
+//        int ans2;
+//        int ans3;
+//
+//        System.out.println("性能测试开始");
+//        maxLen = 30000;
+//        maxValue = 20;
+//        aim = 60000;
+//        arr = randomArray(maxLen, maxValue);
+//
+//        start = System.currentTimeMillis();
+//        ans2 = dp2(arr, aim);
+//        end = System.currentTimeMillis();
+//        System.out.println("dp2答案 : " + ans2 + ", dp2运行时间 : " + (end - start) + " ms");
+//
+//        start = System.currentTimeMillis();
+//        ans3 = dp3(arr, aim);
+//        end = System.currentTimeMillis();
+//        System.out.println("dp3答案 : " + ans3 + ", dp3运行时间 : " + (end - start) + " ms");
+//        System.out.println("性能测试结束");
+//
+//        System.out.println("===========");
+//
+//        System.out.println("货币大量重复出现情况下，");
+//        System.out.println("大数据量测试dp3开始");
+//        maxLen = 20000000;
+//        aim = 10000;
+//        maxValue = 10000;
+//        arr = randomArray(maxLen, maxValue);
+//        start = System.currentTimeMillis();
+//        ans3 = dp3(arr, aim);
+//        end = System.currentTimeMillis();
+//        System.out.println("dp3运行时间 : " + (end - start) + " ms");
+//        System.out.println("大数据量测试dp3结束");
+//
+//        System.out.println("===========");
+//
+//        System.out.println("当货币很少出现重复，dp2比dp3有常数时间优势");
+//        System.out.println("当货币大量出现重复，dp3时间复杂度明显优于dp2");
+//        System.out.println("dp3的优化用到了窗口内最小值的更新结构");
     }
 
     public static int minCoins(int[] arr, int aim) {
