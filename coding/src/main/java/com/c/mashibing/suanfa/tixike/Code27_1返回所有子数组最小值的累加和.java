@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，
  给定一个数组arr，
  返回所有子数组最小值的累加和
@@ -23,16 +22,62 @@ public class Code27_1返回所有子数组最小值的累加和 {
      * @return int
      **/
     public static int sumSubarrayMins(int[] arr) {
-        return 0;
+        if (arr == null || arr.length == 0){
+            return 0;
+        }
+
+        int[] lessIndexArr = getLess(arr);
+        int[] moreIndexArr = getMore(arr);
+        long sum = 0;
+
+        for (int i = 0; i < arr.length; i++){
+            sum += ((i - lessIndexArr[i]) * (moreIndexArr[i] - i) * (long)arr[i]);
+            sum %= 1000000007;
+        }
+        return (int)sum;
     }
 
+    //返回左侧小于等于arr每个元素的数的索引数组
+    private static int[] getLess(int[] arr) {
+        int[] stack = new int[arr.length];
+        int index = -1;
+        int[] lessIndexArr = new int[arr.length];
 
+        for (int i = 0; i < arr.length; i++){
+            while (index != -1 && arr[stack[index]] > arr[i]){
+                int popIndex = stack[index--];
+                lessIndexArr[popIndex] = index == -1 ? -1 : stack[index];
+            }
+            stack[++index] = i;
+        }
 
+        while (index != -1){
+            int popIndex = stack[index--];
+            lessIndexArr[popIndex] = index == -1 ? -1 : stack[index];
+        }
+        return lessIndexArr;
+    }
 
+    //返回右侧大于arr每个元素的数的索引数组
+    private static int[] getMore(int[] arr) {
+        int[] stack = new int[arr.length];
+        int index = -1;
+        int[] moreIndexArr = new int[arr.length];
 
+        for (int i = 0; i < arr.length; i++){
+            while (index != -1 && arr[stack[index]] > arr[i]){
+                int popIndex = stack[index--];
+                moreIndexArr[popIndex] = i;
+            }
+            stack[++index] = i;
+        }
 
-
-
+        while (index != -1){
+            int popIndex = stack[index--];
+            moreIndexArr[popIndex] = arr.length;
+        }
+        return moreIndexArr;
+    }
 
     public static int subArrayMinSum1(int[] arr){
         int ans = 0;
@@ -74,6 +119,7 @@ public class Code27_1返回所有子数组最小值的累加和 {
         for (int i = 0; i < testTime; i++) {
             int len = (int) (Math.random() * maxLen);
             int[] arr = randomArray(len, maxValue);
+//            int[] arr = {11,81,94,43,3};
             int ans1 = subArrayMinSum1(arr);
             int ans2 = subArrayMinSum2(arr);
             int ans3 = sumSubarrayMins(arr);
