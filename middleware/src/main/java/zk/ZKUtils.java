@@ -1,4 +1,4 @@
-package com.mw.zk;
+package zk;
 
 import org.apache.zookeeper.ZooKeeper;
 

@@ -23,3 +23,12 @@ mybatis:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    root: info
+    kafka: info
+    org:
+      apache:
+        kafka:
+          common: info
