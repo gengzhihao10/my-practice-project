@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，
  斐波那契数列矩阵乘法方式的实现
  1）斐波那契数列的线性求解（O(N)）的方式非常好理解
@@ -21,6 +20,52 @@ public class Code27_2求斐波那契数列矩阵乘法的方法 {
      * @return int
      **/
     public static int f(int n){
-        return 0;
+        if (n <= 0){
+            return -1;
+        }
+        if (n == 1 || n == 2){
+            return 1;
+        }
+
+        //系数
+        int[][] base = {{1,1},{1,0}};
+        int[][] power = getPower(base,n - 2);
+        return power[0][0] + power[1][0];
+    }
+
+    //返回input矩阵的n次方
+    private static int[][] getPower(int[][] input, int n) {
+
+        //初始化res矩阵，作为矩阵的单位1存在
+        int[][] res = new int[input.length][input[0].length];
+        for (int i = 0; i < res.length; i++){
+            res[i][i] = 1;
+        }
+
+        for (;n != 0; n /= 2){
+            //n的末尾为1
+            if ((n & 1) != 0){
+                res = product(res,input);
+            }
+            input = product(input,input);
+        }
+        return input;
+    }
+
+
+    // 两个矩阵乘完之后的结果返回
+    public static int[][] product(int[][] a, int[][] b) {
+        int n = a.length;
+        int m = b[0].length;
+        int k = a[0].length; // a的列数同时也是b的行数
+        int[][] ans = new int[n][m];
+        for(int i = 0 ; i < n; i++) {
+            for(int j = 0 ; j < m;j++) {
+                for(int c = 0; c < k; c++) {
+                    ans[i][j] += a[i][c] * b[c][j];
+                }
+            }
+        }
+        return ans;
     }
 }
