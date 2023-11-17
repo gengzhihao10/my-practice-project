@@ -27,6 +27,16 @@ public class Code27_4返回有多少达标的字符串 {
 
 
 
+
+
+
+
+
+
+
+
+
+
     public static int c1(int n) {
         if (n < 1) {
             return 0;
@@ -60,6 +70,8 @@ public class Code27_4返回有多少达标的字符串 {
     }
 
 
+    //**************************************************************************
+
     /*
      * @author gengzhihao
      * @date 2023/11/16 11:27
@@ -70,6 +82,23 @@ public class Code27_4返回有多少达标的字符串 {
     public static int getNum(int n){
         return 0;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public static int getNum1(int n) {
