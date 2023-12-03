@@ -48,16 +48,19 @@ public class Code30_2bfprt算法 {
 
     //bfprt算法，选出一个相对中位数
     private static int bfprt(int[] array, int L, int R) {
+        if(L == R){
+            return array[L];
+        }
         int nums = R -L + 1;
         int groups = nums / 5 + ((nums % 5 == 0) ? 0 : 1);
         int[] mArray = new int[groups];
         int index = 0;
         for (int i = 0; i < groups; i++){
             int start = L + 5 * i;
-            int middle = getMiddle(array,start, Math.min(start + 5, R));
+            int middle = getMiddle(array,start, Math.min(start + 4, R));
             mArray[index++] = middle;
         }
-        return getMiddle(mArray,0,groups - 1);
+        return bfprt(mArray,0,groups - 1);
     }
 
     //将数组array排序后返回中位数,start end对应的是索引
