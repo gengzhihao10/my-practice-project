@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，实现index tree
  */
 public class Code33_2IndexTree2 {
@@ -13,16 +12,26 @@ public class Code33_2IndexTree2 {
 
 
         public IndexTree(int size){
-
+            N = size;
+            tree = new int[N + 1];
         }
 
 
         public int sum(int index){
-            return 0;
+            int sum = 0;
+            while (index > 0){
+                sum += tree[index];
+                index -= -index & index;
+            }
+            return sum;
         }
 
-        public void add(int index, int d){
-
+        //将index二进制最右侧的1剥离出来，加上index得到新的index，是被影响到的tree的所有索引
+        public void add(int index, int val){
+            while (index <= N){
+                tree[index] += val;
+                index += -index & index;
+            }
         }
     }
 
