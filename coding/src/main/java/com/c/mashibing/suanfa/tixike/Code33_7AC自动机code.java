@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /*
-todo
  题目1，实现AC自动机
 
  */
