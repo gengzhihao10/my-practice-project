@@ -161,5 +161,60 @@ public class Code36_8AVL实现代码 {
             cur = maintain(cur);
             return cur;
         }
+
+        //找到k最接近key同时节点的k比key值小的节点
+        private AVLNode<K, V> findLastNoBigIndex(K key){
+
+        }
+
+        //找到k最接近key同时节点的k比key值大的节点
+        private AVLNode<K, V> findLastNoSmallIndex(K key){
+
+        }
+
+        //找到k最接近Key的节点
+        private AVLNode<K, V> findLastIndex(K key){
+
+        }
+
+        public int size(){
+
+        }
+
+        public boolean containsKey(K key){
+
+        }
+
+        public void put(K key, V value){
+
+        }
+
+        public void remove(K key){
+
+        }
+
+        public V get(K key){
+
+        }
+
+        //找到最左的key
+        public K firstKey(){
+
+        }
+
+        //找到最右的key
+        public K lastKey(){
+
+        }
+
+        //找到k最接近key同时key值比节点的k小
+        public K floorKey(K key){
+
+        }
+
+        //找到k最接近key同时key值比节点的k大
+        public K ceilingKey(K key){
+
+        }
     }
 }
