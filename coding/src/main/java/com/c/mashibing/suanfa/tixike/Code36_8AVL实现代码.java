@@ -162,59 +162,161 @@ public class Code36_8AVL实现代码 {
             return cur;
         }
 
-        //找到k最接近key同时节点的k比key值小的节点
+        //找到其k值<=key且最接近Key的节点
         private AVLNode<K, V> findLastNoBigIndex(K key){
+            if (key == null){
+                return null;
+            }
+
+            AVLNode<K,V> ans = null;
+            AVLNode<K,V> cur = root;
+            while (cur != null){
+                if (key.compareTo(cur.k) == 0){
+                    ans = cur;
+                    break;
+                }
+                else if (key.compareTo(cur.k) < 0){
+                    cur = cur.l;
+                }else {
+                    ans = cur;
+                    cur = cur.r;
+                }
+            }
+            return ans;
 
         }
 
-        //找到k最接近key同时节点的k比key值大的节点
+        //找到其k值>=key且最接近Key的节点
         private AVLNode<K, V> findLastNoSmallIndex(K key){
+            if (key == null){
+                return null;
+            }
 
+            AVLNode<K,V> ans = null;
+            AVLNode<K,V> cur = root;
+            while (cur != null){
+                if (key.compareTo(cur.k) == 0){
+                    ans = cur;
+                    break;
+                }
+                else if (key.compareTo(cur.k) < 0){
+                    ans = cur;
+                    cur = cur.l;
+                }else {
+                    cur = cur.r;
+                }
+            }
+            return ans;
         }
 
         //找到k最接近Key的节点
         private AVLNode<K, V> findLastIndex(K key){
+            if (key == null){
+                return null;
+            }
+
+            AVLNode<K,V> ans = null;
+            AVLNode<K,V> cur = root;
+            while (cur != null){
+                ans = cur;
+                if (key.compareTo(cur.k) == 0){
+                    break;
+                }
+                else if (key.compareTo(cur.k) < 0){
+                    cur = cur.l;
+                }else {
+                    cur = cur.r;
+                }
+            }
+            return ans;
 
         }
 
         public int size(){
-
+            return size;
         }
 
         public boolean containsKey(K key){
+            if (key == null){
+                return false;
+            }
 
+            return key.compareTo(findLastIndex(key).k) == 0;
         }
 
         public void put(K key, V value){
+            if (key == null){
+                return;
+            }
 
+            AVLNode<K,V> lastNode = findLastIndex(key);
+            //存在key则只需要更改value，不需要size++
+            if (lastNode != null && lastNode.k.compareTo(key) == 0){
+                lastNode.v = value;
+            }else {
+                size++;
+                root = add(root,key,value);
+            }
         }
 
         public void remove(K key){
+            if (key == null){
+                return;
+            }
+
+            //防止delete时空指针。
+            if (containsKey(key)){
+                size--;
+                root = delete(root,key);
+            }
 
         }
 
         public V get(K key){
+            if (key == null){
+                return null;
+            }
 
+            AVLNode<K,V> res = findLastIndex(key);
+            return key.compareTo(res.k) == 0 ? res.v : null;
         }
 
         //找到最左的key
         public K firstKey(){
-
+            AVLNode<K,V> ans = root;
+            while (ans.l != null){
+                ans = ans.l;
+            }
+            return ans.k;
         }
 
         //找到最右的key
         public K lastKey(){
-
+            AVLNode<K,V> ans = root;
+            while (ans.r != null){
+                ans = ans.r;
+            }
+            return ans.k;
         }
 
         //找到k最接近key同时key值比节点的k小
         public K floorKey(K key){
+            if (key == null){
+                return null;
+            }
 
+            AVLNode<K,V> floorNode = findLastNoBigIndex(key);
+            return floorNode == null ? null : floorNode.k;
         }
 
         //找到k最接近key同时key值比节点的k大
         public K ceilingKey(K key){
+            if (key == null){
+                return null;
+            }
 
+            AVLNode<K,V> ceilingNode = findLastNoSmallIndex(key);
+            return ceilingNode == null ? null : ceilingNode.k;
         }
     }
 }
