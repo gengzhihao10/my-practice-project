@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，实现基于Size Balance Tree(SBT，SB树)的有序表
  */
 public class Code37_1SB树 {
