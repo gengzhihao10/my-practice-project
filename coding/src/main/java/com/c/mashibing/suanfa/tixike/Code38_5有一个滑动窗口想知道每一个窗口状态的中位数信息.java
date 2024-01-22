@@ -213,19 +213,21 @@ public class Code38_5有一个滑动窗口想知道每一个窗口状态的中�
                         //找到右孩子的最左孩子des
                         SBTNode<K> des = cur.r;
                         SBTNode<K> pre = null;
+                        des.size--;
                         while (des.l != null){
                             pre = des;
                             des = des.l;
+                            des.size--;
                         }
                         //des和cur调换
                         //Pre不为空，意味着cur.r有最左孩子，有一个pre变量需要调
                         if (pre != null){
                             pre.l = des.r;
-                            pre.size -= des.size;
                             des.r = cur.r;
                         }
                         des.l = cur.l;
-                        des.size = (des.l != null ? des.l.size : 0) + (des.r != null ? des.r.size : 0) + 1;
+                        des.size = des.l.size + (des.r != null ? des.r.size : 0) + 1;
+                        cur = des;
                     }
                 }
             }
