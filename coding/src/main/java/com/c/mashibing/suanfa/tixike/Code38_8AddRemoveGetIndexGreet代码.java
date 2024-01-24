@@ -67,13 +67,13 @@ public class Code38_8AddRemoveGetIndexGreet代码 {
                 cur = maintain(cur);
             }
             //rr型违规
-             if (rightRight > left) {
+             else if (rightRight > left) {
                 cur = leftRotate(cur);
                 cur.l = maintain(cur.l);
                 cur = maintain(cur);
             }
             //lr型违规
-             if (leftRight > right) {
+            else if (leftRight > right) {
                 cur.l = leftRotate(cur.l);
                 cur = rightRotate(cur);
                 cur.l = maintain(cur.l);
@@ -81,7 +81,7 @@ public class Code38_8AddRemoveGetIndexGreet代码 {
                 cur = maintain(cur);
             }
             //rl型违规
-             if (rightLeft > left) {
+            else if (rightLeft > left) {
                 cur.r = rightRotate(cur.r);
                 cur = leftRotate(cur);
                 cur.l = maintain(cur.l);
