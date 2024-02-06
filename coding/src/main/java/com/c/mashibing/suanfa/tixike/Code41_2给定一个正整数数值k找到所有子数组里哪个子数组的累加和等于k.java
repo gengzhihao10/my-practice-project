@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，
  给定一个正整数组成的无序数组arr，给定一个正整数值K
  找到arr的所有子数组里，哪个子数组的累加和等于K，并且是长度最大的
@@ -19,8 +18,31 @@ public class Code41_2给定一个正整数数值k找到所有子数组里哪个�
      * @param K
      * @return int
      **/
-    public static int getMaxLength(int[] arr, int K){
-        return 0;
+    public static int getMaxLength(int[] arr, int k){
+        if (arr == null || arr.length == 0){
+            return 0;
+        }
+
+        int left = 0, right = 0;
+        int sum = arr[0];
+        int ans = 0;
+
+        while (right < arr.length){
+            if (sum == k){
+                ans = Math.max(ans,right - left + 1);
+                sum -= arr[left++];
+            }
+            else if (sum < k){
+                if (right + 1 == arr.length){
+                    break;
+                }
+                sum += arr[++right];
+            }
+            else {
+                sum -= arr[left++];
+            }
+        }
+        return ans;
     }
 
     //****************************************************************************************************************

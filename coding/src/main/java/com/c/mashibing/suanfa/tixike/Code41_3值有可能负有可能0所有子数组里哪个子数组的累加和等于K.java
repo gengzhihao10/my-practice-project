@@ -1,7 +1,10 @@
 package com.c.mashibing.suanfa.tixike;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 /*
-todo
  题目1，
  给定一个整数组成的无序数组arr，值可能正、可能负、可能0
  给定一个整数值K
@@ -21,7 +24,28 @@ public class Code41_3值有可能负有可能0所有子数组里哪个子数组�
      * @return int
      **/
     public static int maxLength(int[] arr, int k){
-        return 0;
+        if (arr == null || arr.length == 0){
+            return 0;
+        }
+
+        TreeMap<Integer,Integer> map = new TreeMap<>();
+        int pre = 0;
+        map.put(pre,-1);
+        int ans = 0;
+        for (int i = 0; i < arr.length; i++){
+            //此时Pre表示arr[0]到arr[i]位置的和
+            pre += arr[i];
+            //左边无用子数组和为pre - k，右边和为K的子数组，共同组成了index从0到i，和为Pre的数组
+            if (map.containsKey(pre - k)){
+                ans = Math.max(ans, i - map.get(pre - k));
+            }
+            //两个前缀和数组的和一样，要留下前缀和数组右边界更短的，因为这样留给满足条件子数组的长度就能更长
+            if (!map.containsKey(pre)){
+                map.put(pre,i);
+            }
+        }
+
+        return ans;
     }
 
 
