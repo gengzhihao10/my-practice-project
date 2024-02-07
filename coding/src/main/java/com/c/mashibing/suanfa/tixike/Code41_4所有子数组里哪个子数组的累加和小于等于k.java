@@ -21,7 +21,47 @@ public class Code41_4所有子数组里哪个子数组的累加和小于等于k 
      * @return int
      **/
     public static int maxLengthAwesome(int[] arr, int k){
-        return 0;
+        if (arr == null || arr.length == 0){
+            return 0;
+        }
+
+        int[] minSums = new int[arr.length];
+        int[] minSumEnds = new int[arr.length];
+        minSums[arr.length-1] = arr[arr.length-1];
+        minSumEnds[arr.length-1] = arr.length-1;
+        for (int i = arr.length - 2; i >= 0; i--){
+            //如果右侧累加和为负，则可以累加出更小的累加和，就累加上
+            if (minSums[i + 1] < 0){
+                minSums[i] = arr[i] + minSums[i + 1];
+                minSumEnds[i] = minSumEnds[i + 1];
+            }else {
+                minSums[i] = arr[i];
+                minSumEnds[i] = i;
+            }
+        }
+
+        int ans = 0;
+        //end表示没有扩进来的第一个数
+        int end = 0;
+        int sum = 0;
+        for (int i = 0; i < arr.length - 1; i++){
+            //能向右推就向右推
+            while (end < arr.length && sum + minSums[end] <= k){
+                sum += minSums[end];
+                end = minSumEnds[end] + 1;
+            }
+            ans = Math.max(ans, end - i);
+            //每次i++，都需要在sum中减去因为i++舍弃的arr[i-1]，前提是end没有等于i，即窗口内还有数
+            if (end > i){
+                sum -= arr[i];
+            }
+            //end没有扩，i逐渐增大，end和i数值一样。这种情况，因此end也需要加一，
+            //但是不需要sum -= arr[i]，因为sum已经减到0（窗口内没有数了）
+            else {
+                end++;
+            }
+        }
+        return ans;
     }
 
 
@@ -81,6 +121,7 @@ public class Code41_4所有子数组里哪个子数组的累加和小于等于k 
             int k = (int) (Math.random() * 20) - 5;
             if (maxLengthAwesome(arr, k) != maxLength(arr, k)) {
                 System.out.println("Oops!");
+                break;
             }
         }
         System.out.println("test finish");
