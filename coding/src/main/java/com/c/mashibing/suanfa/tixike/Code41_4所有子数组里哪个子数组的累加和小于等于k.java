@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，
  给定一个整数组成的无序数组arr，值可能正、可能负、可能0
  给定一个整数值K
