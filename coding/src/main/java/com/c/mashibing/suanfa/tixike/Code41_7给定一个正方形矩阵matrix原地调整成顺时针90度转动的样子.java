@@ -163,7 +163,6 @@ public class Code41_7给定一个正方形矩阵matrix原地调整成顺时针90
         boolean flag = true;
         for (int i = 0; i < matrix.length + matrix[0].length; i++){
             printZigZag(matrix,us,uv,ds,dv,flag);
-            //fixme 问题就在于怎么控制us ue ds de等坐标的正确变化呢？
             us = uv == matrix[0].length - 1 ? us + 1 : us;
             uv = uv == matrix[0].length - 1 ? uv : uv + 1;
             dv = ds == matrix.length - 1 ? dv + 1 : dv;
