@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，
  给定一个非负数组arr，长度为N，
  那么有N-1种方案可以把arr切成左右两部分
@@ -20,7 +19,24 @@ public class Code42_1求这么多方案中min左部分累加和右部分累加�
      * @return int
      **/
     public static int bestSplit2(int[] arr){
-        return 0;
+        if (arr == null || arr.length <= 1){
+            return 0;
+        }
+
+        int ans = 0;
+        int sumAll = 0;
+        //计算数组累加和
+        for (int i = 0; i < arr.length; i++){
+            sumAll += arr[i];
+        }
+        int sumLeft = 0;
+        int sumRight = 0;
+        for (int i = 0; i < arr.length; i++){
+            sumLeft += arr[i];
+            sumRight = sumAll - sumLeft;
+            ans = Math.max(ans, Math.min(sumLeft, sumRight));
+        }
+        return ans;
     }
 
 

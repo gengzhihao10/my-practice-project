@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，
  把题目一中提到的，
  min{左部分累加和，右部分累加和}，定义为S(N-1)，也就是说：
@@ -21,10 +20,43 @@ public class Code42_2要求返回一个长度为N的s数组 {
      * @return int[]
      **/
     public static int[] bestSplit3(int[] arr){
-        return null;
+        if (arr == null || arr.length == 0){
+            return new int[0];
+        }
+
+        //计算前缀和数组，pre[i]表示arr[0]到arr[i-1]的累加和
+        // 通过前缀和的相减计算得到每一个以index=0开始的子数组的累加和
+        int[] preSum = new int[arr.length + 1];
+        for (int i = 0; i < arr.length; i++){
+            preSum[i + 1] = preSum[i] + arr[i];
+        }
+
+        //结果数组
+        int[] ans = new int[arr.length];
+//        ans[0] = Math.min(getSum(preSum,1,preSum.length-1), arr[0]);
+        int line = 0;
+        int cur = 0, next = 0;
+        //end为子数组的右边界
+        for (int end = 1; end < arr.length; end++){
+            while (line < arr.length - 1){
+                cur = Math.min(getSum(preSum,0,line),getSum(preSum,line + 1,end));
+                next = Math.min(getSum(preSum,0,line + 1), getSum(preSum,line + 2,end));
+                if (cur <= next){
+                    line++;
+                }else {
+                    break;
+                }
+            }
+            ans[end] = cur;
+        }
+        return ans;
     }
 
+    private static int getSum(int[] preSum, int L, int R){
+        return preSum[R + 1] - preSum[L];
+    }
 
+//***********************************************************************************************************
 
     public static int[] bestSplit1(int[] arr) {
         if (arr == null || arr.length == 0) {
