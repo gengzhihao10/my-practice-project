@@ -14,13 +14,120 @@ todo
 public class Code42_6所有的画家并行工作请返回完成所有的画作需要的最少时间1 {
 
 
+    /*
+     * @author gengzhihao
+     * @date 2024/2/29 10:17
+     * @description 题目1。动态规划，复杂度O(N^2*K)
+     * @param nums 画作数组，每个值代表对应索引的画要画完需要的时间
+     * @param K 画家数量
+     * @return int 能画完这些画的最短时间
+     **/
     public static int splitArray1(int[] nums, int K){
+        if (K < 0){
+            return -1;
+        }
+        if (nums == null || nums.length == 0){
+            return 0;
+        }
 
-        return 0;
+        int N = nums.length;
+        int[] preSum = new int[N+1];
+        for(int i = 0; i < N; i++){
+            preSum[i + 1] = preSum[i] + nums[i];
+        }
+
+        //假设dp[i][j]=cost。表示有nums[0]~nums[i]个画作，由j个画家完成最短需要cost分钟
+        int[][] dp = new int[N][K+1];
+        //左边边界条件，只有0号画作，j个画师，画完需要多久
+        for (int j = 1; j <= K; j++){
+            dp[0][j] = nums[0];
+        }
+        //上边边界条件，有从0到i号画作，只有1个画师，画完要多久
+        for (int i = 1; i < N; i++){
+            dp[i][1] = getSum(preSum,0,i);
+        }
+
+        for (int i = 1; i < N; i++){
+            for (int j = 2; j <= K; j++){
+                int minCost = Integer.MAX_VALUE;
+                //需要遍历找到最小值
+                //每次遍历，是给j-1个画师，分配-1~line个画作(-1表示不分配画作)，画完需要preCost；第j个画师画完剩下的画作，需要curCost；取最大值，得到Cost
+                //遍历所有可能性(line)，找到cost的最小值
+                for (int line = -1; line <= i; line++){
+                    int preCost = line == -1 ? 0 : dp[line][j-1];
+                    int curCost = line == i ? 0 : getSum(preSum,line + 1,i);
+                    int cost = Math.max(preCost,curCost);
+                    minCost = Math.min(minCost,cost);
+                }
+                dp[i][j] = minCost;
+            }
+        }
+        return dp[N-1][K];
     }
 
+    //获取nums数组从索引L到R范围内的和
+    private static int getSum(int[] preSum, int L, int R){
+        return preSum[R + 1] - preSum[L];
+    }
+
+    /*
+     * @author gengzhihao
+     * @date 2024/3/1 10:39
+     * @description 动态规划，基于四边形不等式优化，复杂度O(N*K)
+     * @param nums
+     * @param K
+     * @return int
+     **/
     public static int splitArray2(int[] nums, int K){
-        return 0;
+        if (K < 0){
+            return -1;
+        }
+        if (nums == null || nums.length == 0){
+            return 0;
+        }
+
+        int N = nums.length;
+        int[] preSum = new int[N+1];
+        for(int i = 0; i < N; i++){
+            preSum[i + 1] = preSum[i] + nums[i];
+        }
+
+        //假设dp[i][j]=cost。表示有nums[0]~nums[i]个画作，由j个画家完成最短需要cost分钟
+        int[][] dp = new int[N][K+1];
+        int[][] best = new int[N][K + 1];
+        //左边边界条件，只有0号画作，j个画师，画完需要多久
+        for (int j = 1; j <= K; j++){
+            dp[0][j] = nums[0];
+            best[0][j] = -1;
+        }
+        //上边边界条件，有从0到i号画作，只有1个画师，画完要多久
+        for (int i = 1; i < N; i++){
+            dp[i][1] = getSum(preSum,0,i);
+            best[i][1] = -1;
+        }
+
+        for (int j = 2; j <= K; j++){
+            for (int i = N - 1; i >= 1; i--){
+                int left = best[i][j-1];
+                int right = i == N -1 ? N - 1 : best[i+1][j];
+                int minCost = Integer.MAX_VALUE;
+                int bestChoise = -1;
+                for (int line = left; line <= right; line++){
+                    int preCost = line == -1 ? 0 : dp[line][j-1];
+                    int curCost = line == i ? 0 : getSum(preSum,line + 1,i);
+                    int cost = Math.max(preCost,curCost);
+                    if (cost < minCost){
+                        minCost = cost;
+                        bestChoise = line;
+                    }
+                    minCost = Math.min(minCost,cost);
+                }
+                dp[i][j] = minCost;
+                best[i][j] = bestChoise;
+            }
+        }
+
+        return dp[N-1][K];
     }
 
     public static int splitArray3(int[] nums, int M){
