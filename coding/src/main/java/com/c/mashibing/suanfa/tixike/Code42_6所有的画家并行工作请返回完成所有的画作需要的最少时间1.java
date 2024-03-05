@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  给定一个整型数组 arr，数组中的每个值都为正数，表示完成一幅画作需要的时间，再 给定 一个整数 num，表示画匠的数量，每个画匠只能画连在一起的画作。所有的画家 并行工作，请 返回完成所有的画作需要的最少时间。
  【举例】
  arr=[3,1,4]，num=2。
@@ -130,10 +129,73 @@ public class Code42_6所有的画家并行工作请返回完成所有的画作�
         return dp[N-1][K];
     }
 
+    /*
+     * @author gengzhihao
+     * @date 2024/3/1 11:05
+     * @description 最优解，使用油桶问题的解法，
+     * 复杂度O(log(sum) * K)，其中sum为nums数组的和（long上限为2^64，因此log(sum)最大为64）
+     * @param nums
+     * @param M
+     * @return int
+     **/
     public static int splitArray3(int[] nums, int M){
-        return 0;
+        if (M < 0){
+            return -1;
+        }
+        if (nums == null || nums.length == 0){
+            return 0;
+        }
+        if (nums.length == 1){
+            return nums[0] <= M ? nums[0] : -1;
+        }
+
+
+        Long cost = 0L;
+        for (int i = 0; i < nums.length; i ++){
+            cost += nums[i];
+        }
+        //L..R表示cost的范围，通过二分法尝试找到能够符合要求的画家数量
+        long ans = 0;
+        long L = 0;
+        long R = cost;
+
+        while (L <= R){
+            cost = (L + R) / 2;
+            int cur = get(nums, cost);
+            if (cur <= M){
+                ans = cost;
+                R = cost - 1;
+            }else {
+                L = cost + 1;
+            }
+        }
+        return (int) ans;
     }
 
+    //对于数组nums，总体消耗时间为cost，返回最少需要几个画家
+    private static int get(int[] nums, Long cost) {
+        for (int i = 0; i < nums.length; i++){
+            if (nums[i] > cost){
+                return Integer.MAX_VALUE;
+            }
+        }
+        //总体消耗cost，需要的画家数量
+        int count = 1;
+        //每个画家实际需要消耗多少时间
+        long timePerArtist = nums[0];
+        for (int i = 1; i < nums.length; i++){
+            //没超过cost，就把本次循环里画作需要消耗这个画家多少时间加上
+            if (timePerArtist + nums[i] <= cost){
+                timePerArtist += nums[i];
+            }
+            //超过了cost，就需要重新找一个画家
+            else {
+                timePerArtist = nums[i];
+                count++;
+            }
+        }
+        return count;
+    }
 
 
     //***************************************************************************************************
