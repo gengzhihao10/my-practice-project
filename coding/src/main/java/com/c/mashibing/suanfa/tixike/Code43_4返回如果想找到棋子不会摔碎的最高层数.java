@@ -112,6 +112,8 @@ public class Code43_4返回如果想找到棋子不会摔碎的最高层数 {
      * @return int
      **/
     public static int superEggDrop4(int k, int n){
+        System.out.println("test");
+
         return 0;
     }
 
