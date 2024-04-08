@@ -120,13 +120,13 @@ public class QuickStartJavaDocTest {
                 // 第一步：挑选所需的字段，类似select *，*所代表的字段内容
                 Aggregation.project("begin", "end", "userId", "distance"),
                 // 第二步：sql where 语句筛选符合条件的记录
-            Aggregation.match(Criteria.where("userId").is(map.get("userId"))),
+//            Aggregation.match(Criteria.where("userId").is(map.get("userId"))),
                 // 第三步：分组条件，设置分组字段
                 Aggregation.group("userId").sum("distance").as("distance"),
                 // 第四部：排序（根据某字段排序 倒序）
                 Aggregation.sort(Sort.Direction.DESC,"distance"),
                 // 第刘步：重新挑选字段
-                Aggregation.project("userId","distance"),
+                Aggregation.project("userId","distance")
 
 
         );
