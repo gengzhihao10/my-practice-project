@@ -22,7 +22,7 @@ public class Publisher {
         //2.构建channel
         Channel channel = connection.createChannel();
         //3.构建交换机
-        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
         //4.构建队列
         channel.queueDeclare(QUEUE_NAME1,false,false,false,null);
         channel.queueDeclare(QUEUE_NAME2,false,false,false,null);
