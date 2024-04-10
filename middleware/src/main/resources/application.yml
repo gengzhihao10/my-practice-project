@@ -4,31 +4,37 @@ server:
 
 #mysql数据库
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/csair?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&useAffectedRows=true&allowPublicKeyRetrieval=true
-    username: root
-    password: root
-  redis:
-    # Redis 单机单实例
-    database: 0
-    host: localhost
-    port: 6379
-    password: root
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/csair?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&useAffectedRows=true&allowPublicKeyRetrieval=true
+#    username: root
+#    password: root
+#  redis:
+#    # Redis 单机单实例
+#    database: 0
+#    host: localhost
+#    port: 6379
+#    password: root
+  rabbitmq:
+    host: 192.168.18.128
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 
-mybatis:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-logging:
-  level:
-    root: info
-    kafka: info
-    org:
-      apache:
-        kafka:
-          common: info
+#mybatis:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#
+#logging:
+#  level:
+#    root: debug
+#    kafka: info
+#    org:
+#      apache:
+#        kafka:
+#          common: info
