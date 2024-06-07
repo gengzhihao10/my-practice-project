@@ -1,7 +1,6 @@
 package com.c.mashibing.suanfa.tixike;
 
 /*
-todo
  题目1，
  leetcode测试链接：https://leetcode.com/problems/super-egg-drop
  中文版：https://leetcode.cn/problems/super-egg-drop/description/
@@ -107,12 +106,35 @@ public class Code43_4返回如果想找到棋子不会摔碎的最高层数 {
      * @author gengzhihao
      * @date 2024/3/12 11:59
      * @description 换了试法的动态规划，使用空间压缩进行优化
+     * 最优解。试法为：横坐标为剩余i+1个鸡蛋数，纵坐标为做j次选择，dp[i,j]表示在剩余i+1个鸡蛋做出j次选择的情况下，能够搞定几层楼。
+     * 再此基础上，发现一般项计算只依赖左侧和左上角两项相加再加一，且尝试次数j无法确定。于是对其进行空间压缩，只保留鸡蛋数作为数组，ans作为当前列数
+     * 当计算得到超过楼层数n时，说明此时i+1个鸡蛋(最多k个)，做出当前这么多次选择，能够探索清楚n层楼，返回选择次数，也就是列数即可。
+     * 这种试法的一般项计算，接近于斐波那契数列，很快会逼近int甚至Long的最大值
      * @param k
      * @param n
      * @return int
      **/
     public static int superEggDrop4(int k, int n){
-        return 0;
+        if (k < 1 || n < 1){
+            return 0;
+        }
+
+        int[] dp = new int[k];
+
+        int ans = 0;
+        while (true){
+            ans++;
+            int pre = 0;
+            for (int i = 0; i < dp.length; i++){
+                int tmp = dp[i];
+                dp[i] = dp[i] + pre + 1;
+                pre = tmp;
+
+                if (dp[i] >= n){
+                    return ans;
+                }
+            }
+        }
     }
 
 
@@ -127,8 +149,8 @@ public class Code43_4返回如果想找到棋子不会摔碎的最高层数 {
             int ans1 = superEggDrop1(K, N);
             int ans2 = superEggDrop2(K, N);
             int ans3 = superEggDrop3(K, N);
-//            int ans4 = superEggDrop4(K, N);
-            if (ans1 != ans3 ) {
+            int ans4 = superEggDrop4(K, N);
+            if (ans1 != ans4 ) {
                 System.out.println("出错了!");
                 break;
             }

@@ -1,6 +1,5 @@
 package com.c.mashibing.suanfa.tixike;
 
-import netscape.security.UserTarget;
 
 import java.util.*;
 
